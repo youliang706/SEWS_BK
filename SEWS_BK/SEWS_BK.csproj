@@ -1,0 +1,451 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{255CADFA-2201-41BF-BAF4-675229C17DAC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SEWS_BK</RootNamespace>
+    <AssemblyName>SEWS_BK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>20150806092640365_easyicon_net_32.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BusMonitor">
+      <HintPath>..\..\ITS\BusMonitor\BusMonitor\bin\Debug\BusMonitor.dll</HintPath>
+    </Reference>
+    <Reference Include="CircleLoading">
+      <HintPath>..\..\MTCP\MTCP_BK\MTCP_BK\bin\Debug\CircleLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Xpo.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1.UI, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v16.1.Wizard, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraScheduler.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v16.1.Core, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v16.1, Version=16.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ITS\MapMonitor\MapMonitor\bin\Debug\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ITS\MapMonitor\MapMonitor\bin\Debug\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>..\..\ITS\MapMonitor\MapMonitor\bin\Debug\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="datareport\frmWarningDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmWarningDetail.Designer.cs">
+      <DependentUpon>frmWarningDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmWarningPeriodStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmWarningPeriodStat.Designer.cs">
+      <DependentUpon>frmWarningPeriodStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="evaluatesys\frmRSNAanalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="evaluatesys\frmRSNAanalysis.Designer.cs">
+      <DependentUpon>frmRSNAanalysis.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmHomepage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHomepage.Designer.cs">
+      <DependentUpon>frmHomepage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLoading.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoading.Designer.cs">
+      <DependentUpon>frmLoading.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\BusInfo.cs" />
+    <Compile Include="realmonitor\CLineList.cs" />
+    <Compile Include="realmonitor\frmMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmMonitor.Designer.cs">
+      <DependentUpon>frmMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\GMapTip.cs" />
+    <Compile Include="realmonitor\LineInfo.cs" />
+    <Compile Include="realmonitor\StationInfo.cs" />
+    <Compile Include="realmonitor\TrackPoint.cs" />
+    <Compile Include="systemset\frmUserArc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUserArc.Designer.cs">
+      <DependentUpon>frmUserArc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmWarningStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmWarningStat.Designer.cs">
+      <DependentUpon>frmWarningStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmWarningTrend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmWarningTrend.Designer.cs">
+      <DependentUpon>frmWarningTrend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmWarningDist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmWarningDist.Designer.cs">
+      <DependentUpon>frmWarningDist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPwd.Designer.cs">
+      <DependentUpon>frmPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="generic\CDatabase.cs" />
+    <Compile Include="generic\CFunc.cs" />
+    <Compile Include="generic\CReg.cs" />
+    <Compile Include="generic\CSubclass.cs" />
+    <Compile Include="generic\CVar.cs" />
+    <Compile Include="generic\CFtp.cs" />
+    <Compile Include="generic\WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="generic\WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="generic\WaitFormService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="realmonitor\AMapProviderBase.cs" />
+    <Compile Include="realmonitor\CHeartBeatInfo.cs" />
+    <Compile Include="realmonitor\GMapMarkerImage.cs" />
+    <Compile Include="realmonitor\GpsTranslate.cs" />
+    <Compile Include="systemset\frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUser.Designer.cs">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmUserInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUserInput.Designer.cs">
+      <DependentUpon>frmUserInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmSysLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmSysLog.Designer.cs">
+      <DependentUpon>frmSysLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmRole.Designer.cs">
+      <DependentUpon>frmRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmRoleInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmRoleInput.Designer.cs">
+      <DependentUpon>frmRoleInput.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="datareport\frmWarningDetail.resx">
+      <DependentUpon>frmWarningDetail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmWarningPeriodStat.resx">
+      <DependentUpon>frmWarningPeriodStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="evaluatesys\frmRSNAanalysis.resx">
+      <DependentUpon>frmRSNAanalysis.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHomepage.resx">
+      <DependentUpon>frmHomepage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="realmonitor\frmMonitor.resx">
+      <DependentUpon>frmMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmUserArc.resx">
+      <DependentUpon>frmUserArc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmWarningStat.resx">
+      <DependentUpon>frmWarningStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmWarningTrend.resx">
+      <DependentUpon>frmWarningTrend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmWarningDist.resx">
+      <DependentUpon>frmWarningDist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPwd.resx">
+      <DependentUpon>frmPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="generic\WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="systemset\frmUser.resx">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmUserInput.resx">
+      <DependentUpon>frmUserInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmSysLog.resx">
+      <DependentUpon>frmSysLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmRole.resx">
+      <DependentUpon>frmRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmRoleInput.resx">
+      <DependentUpon>frmRoleInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_pencil_profile_write_16px_2458_easyicon.net.png" />
+    <None Include="Resources\full_trash_16px_15927_easyicon.net.png" />
+    <None Include="Resources\add_16px_32817_easyicon.net.png" />
+    <None Include="Resources\delete_16px_40904_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search_16px_1072624_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gear_16px_567604_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_flat_brown_16px_1117242_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_deny_16px_533412_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="20150806092640365_easyicon_net_32.ico" />
+    <None Include="Resources\5_stars.png" />
+    <None Include="Resources\4_stars.png" />
+    <None Include="Resources\4.5_stars.png" />
+    <None Include="Resources\3_stars.png" />
+    <None Include="Resources\3.5_stars.png" />
+    <None Include="Resources\2_stars.png" />
+    <None Include="Resources\2.5_stars.png" />
+    <None Include="Resources\1_star.png" />
+    <None Include="Resources\1.5_stars.png" />
+    <None Include="Resources\0_star.png" />
+    <None Include="Resources\0.5_star.png" />
+    <None Include="Resources\pt2.png" />
+    <None Include="Resources\pt1.png" />
+    <None Include="Resources\Bus3.png" />
+    <None Include="Resources\Bus2.png" />
+    <None Include="Resources\Bus1.png" />
+    <None Include="Resources\Bus.png" />
+    <None Include="Resources\track.png" />
+    <None Include="Resources\prev.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\prev2.png" />
+    <None Include="Resources\next2.png" />
+    <None Include="Resources\4132641291014631.jpg" />
+    <None Include="Resources\bus_24px_34179_easyicon.net.png" />
+    <None Include="Resources\png-0005.png" />
+    <None Include="Resources\close_out.png" />
+    <None Include="Resources\close_in.png" />
+    <None Include="Resources\login_btn3.png" />
+    <None Include="Resources\login_btn2.png" />
+    <None Include="Resources\login_btn.png" />
+    <None Include="Resources\Undo_16x16.png" />
+    <None Include="Resources\InvalidImage.jpg" />
+    <None Include="Resources\Download_16x16.png" />
+    <None Include="Resources\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="MapXLib">
+      <Guid>{E760686B-BC9E-4802-9ECF-175FDF4062CE}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 和 x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.4.5">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 4.5</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

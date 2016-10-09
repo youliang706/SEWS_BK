@@ -1,0 +1,712 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{255CADFA-2201-41BF-BAF4-675229C17DAC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SEWS_BK</RootNamespace>
+    <AssemblyName>SEWS_BK</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>20150806092640365_easyicon_net_32.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CircleLoading">
+      <HintPath>..\..\..\CircleLoading\CircleLoading\bin\Debug\CircleLoading.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Data.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v14.1.Core, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.Utils.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraBars.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.UI, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v14.1.Wizard, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraEditors.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraGrid.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraLayout.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraNavBar.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraPrinting.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DevExpress.XtraTreeList.v14.1, Version=14.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GMap.NET.Core, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\GMap.NET.WindowsForms\Release-NETv4.0\GMap.NET.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="GMap.NET.WindowsForms, Version=1.7.0.0, Culture=neutral, PublicKeyToken=b85b9027b614afef, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\GMap.NET.WindowsForms\Release-NETv4.0\GMap.NET.WindowsForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess">
+      <HintPath>..\..\..\zngj\BusMonitorSys\BusMonitorSys\bin\Debug\Oracle.ManagedDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="baseset\frmArcTmr.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmArcTmr.Designer.cs">
+      <DependentUpon>frmArcTmr.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmArcTrack.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmArcTrack.Designer.cs">
+      <DependentUpon>frmArcTrack.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmArcInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmArcInput.Designer.cs">
+      <DependentUpon>frmArcInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmDeleteTypeInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmDeleteTypeInput.Designer.cs">
+      <DependentUpon>frmDeleteTypeInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmDeleteType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmDeleteType.Designer.cs">
+      <DependentUpon>frmDeleteType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgSubmitX.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgSubmitX.Designer.cs">
+      <DependentUpon>frmImgSubmitX.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\WebServiceCaller.cs" />
+    <Compile Include="dataprocessing\uploadViosurveil.cs" />
+    <Compile Include="datareport\frmArcStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmArcStat.Designer.cs">
+      <DependentUpon>frmArcStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmMacStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmMacStatus.Designer.cs">
+      <DependentUpon>frmMacStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="evaluatesys\frmLineBusRunning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="evaluatesys\frmLineBusRunning.Designer.cs">
+      <DependentUpon>frmLineBusRunning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="evaluatesys\frmDayBusRunning.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="evaluatesys\frmDayBusRunning.Designer.cs">
+      <DependentUpon>frmDayBusRunning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\frmMapXMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmMapXMonitor.Designer.cs">
+      <DependentUpon>frmMapXMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmUserArc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUserArc.Designer.cs">
+      <DependentUpon>frmUserArc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmStationInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmStationInput.Designer.cs">
+      <DependentUpon>frmStationInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmStation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmStation.Designer.cs">
+      <DependentUpon>frmStation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmPeccancyType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmPeccancyType.Designer.cs">
+      <DependentUpon>frmPeccancyType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmInvalidType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmInvalidType.Designer.cs">
+      <DependentUpon>frmInvalidType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmBranch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmBranch.Designer.cs">
+      <DependentUpon>frmBranch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmPeccancyTypeInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmPeccancyTypeInput.Designer.cs">
+      <DependentUpon>frmPeccancyTypeInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmInvalidTypeInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmInvalidTypeInput.Designer.cs">
+      <DependentUpon>frmInvalidTypeInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmBranchInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmBranchInput.Designer.cs">
+      <DependentUpon>frmBranchInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmBusInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmBusInput.Designer.cs">
+      <DependentUpon>frmBusInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmBus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmBus.Designer.cs">
+      <DependentUpon>frmBus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmArc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmArc.Designer.cs">
+      <DependentUpon>frmArc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmLineArc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmLineArc.Designer.cs">
+      <DependentUpon>frmLineArc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmLineInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmLineInput.Designer.cs">
+      <DependentUpon>frmLineInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="baseset\frmLine.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="baseset\frmLine.Designer.cs">
+      <DependentUpon>frmLine.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgDownloadProcess.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgDownloadProcess.Designer.cs">
+      <DependentUpon>frmImgDownloadProcess.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmInvalidChange.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmInvalidChange.Designer.cs">
+      <DependentUpon>frmInvalidChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgSubmit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgSubmit.Designer.cs">
+      <DependentUpon>frmImgSubmit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgView.Designer.cs">
+      <DependentUpon>frmImgView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmDeletedData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmDeletedData.Designer.cs">
+      <DependentUpon>frmDeletedData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmInvalidData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmInvalidData.Designer.cs">
+      <DependentUpon>frmInvalidData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgDownload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmImgDownload.Designer.cs">
+      <DependentUpon>frmImgDownload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmValidData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmValidData.Designer.cs">
+      <DependentUpon>frmValidData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\frmRawData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="dataprocessing\frmRawData.Designer.cs">
+      <DependentUpon>frmRawData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="dataprocessing\ImageResizer.cs" />
+    <Compile Include="datareport\frmArcReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmArcReport.Designer.cs">
+      <DependentUpon>frmArcReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmMacReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmMacReport.Designer.cs">
+      <DependentUpon>frmMacReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmPeccancyTrend.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmPeccancyTrend.Designer.cs">
+      <DependentUpon>frmPeccancyTrend.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmInvalidStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmInvalidStat.Designer.cs">
+      <DependentUpon>frmInvalidStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="datareport\frmValidStat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datareport\frmValidStat.Designer.cs">
+      <DependentUpon>frmValidStat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="evaluatesys\frmRoadSmoothness.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="evaluatesys\frmRoadSmoothness.Designer.cs">
+      <DependentUpon>frmRoadSmoothness.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPwd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPwd.Designer.cs">
+      <DependentUpon>frmPwd.cs</DependentUpon>
+    </Compile>
+    <Compile Include="generic\CDatabase.cs" />
+    <Compile Include="generic\CFunc.cs" />
+    <Compile Include="generic\CReg.cs" />
+    <Compile Include="generic\CSubclass.cs" />
+    <Compile Include="generic\CVar.cs" />
+    <Compile Include="generic\CFtp.cs" />
+    <Compile Include="generic\WaitForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="generic\WaitForm.Designer.cs">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="generic\WaitFormService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="realmonitor\AMapProviderBase.cs" />
+    <Compile Include="realmonitor\CHeartBeatInfo.cs" />
+    <Compile Include="realmonitor\frmCameraStatus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmCameraStatus.Designer.cs">
+      <DependentUpon>frmCameraStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\frmRealVideo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmRealVideo.Designer.cs">
+      <DependentUpon>frmRealVideo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\frmMapMonitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmMapMonitor.Designer.cs">
+      <DependentUpon>frmMapMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="realmonitor\GMapMarkerImage.cs" />
+    <Compile Include="realmonitor\GpsCorrect.cs" />
+    <Compile Include="realmonitor\GpsTranslate.cs" />
+    <Compile Include="realmonitor\UdpMessage.cs" />
+    <Compile Include="systemset\frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUser.Designer.cs">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmUserInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmUserInput.Designer.cs">
+      <DependentUpon>frmUserInput.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmSysLog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmSysLog.Designer.cs">
+      <DependentUpon>frmSysLog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmRole.Designer.cs">
+      <DependentUpon>frmRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="systemset\frmRoleInput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="systemset\frmRoleInput.Designer.cs">
+      <DependentUpon>frmRoleInput.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="baseset\frmArcTmr.resx">
+      <DependentUpon>frmArcTmr.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmArcTrack.resx">
+      <DependentUpon>frmArcTrack.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmArcInput.resx">
+      <DependentUpon>frmArcInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmDeleteTypeInput.resx">
+      <DependentUpon>frmDeleteTypeInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmDeleteType.resx">
+      <DependentUpon>frmDeleteType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmImgSubmitX.resx">
+      <DependentUpon>frmImgSubmitX.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmArcStat.resx">
+      <DependentUpon>frmArcStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmMacStatus.resx">
+      <DependentUpon>frmMacStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="evaluatesys\frmLineBusRunning.resx">
+      <DependentUpon>frmLineBusRunning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="evaluatesys\frmDayBusRunning.resx">
+      <DependentUpon>frmDayBusRunning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="realmonitor\frmMapXMonitor.resx">
+      <DependentUpon>frmMapXMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmUserArc.resx">
+      <DependentUpon>frmUserArc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmStationInput.resx">
+      <DependentUpon>frmStationInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmStation.resx">
+      <DependentUpon>frmStation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmPeccancyType.resx">
+      <DependentUpon>frmPeccancyType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmInvalidType.resx">
+      <DependentUpon>frmInvalidType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmBranch.resx">
+      <DependentUpon>frmBranch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmPeccancyTypeInput.resx">
+      <DependentUpon>frmPeccancyTypeInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmInvalidTypeInput.resx">
+      <DependentUpon>frmInvalidTypeInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmBranchInput.resx">
+      <DependentUpon>frmBranchInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmBus.resx">
+      <DependentUpon>frmBus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmArc.resx">
+      <DependentUpon>frmArc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmLine.resx">
+      <DependentUpon>frmLine.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmBusInput.resx">
+      <DependentUpon>frmBusInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmLineArc.resx">
+      <DependentUpon>frmLineArc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="baseset\frmLineInput.resx">
+      <DependentUpon>frmLineInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmImgDownloadProcess.resx">
+      <DependentUpon>frmImgDownloadProcess.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmInvalidChange.resx">
+      <DependentUpon>frmInvalidChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmImgSubmit.resx">
+      <DependentUpon>frmImgSubmit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmImgView.resx">
+      <DependentUpon>frmImgView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmDeletedData.resx">
+      <DependentUpon>frmDeletedData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmInvalidData.resx">
+      <DependentUpon>frmInvalidData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmImgDownload.resx">
+      <DependentUpon>frmImgDownload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmValidData.resx">
+      <DependentUpon>frmValidData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="dataprocessing\frmRawData.resx">
+      <DependentUpon>frmRawData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmArcReport.resx">
+      <DependentUpon>frmArcReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmMacReport.resx">
+      <DependentUpon>frmMacReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmPeccancyTrend.resx">
+      <DependentUpon>frmPeccancyTrend.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmInvalidStat.resx">
+      <DependentUpon>frmInvalidStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datareport\frmValidStat.resx">
+      <DependentUpon>frmValidStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="evaluatesys\frmRoadSmoothness.resx">
+      <DependentUpon>frmRoadSmoothness.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPwd.resx">
+      <DependentUpon>frmPwd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="generic\WaitForm.resx">
+      <DependentUpon>WaitForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="realmonitor\frmCameraStatus.resx">
+      <DependentUpon>frmCameraStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="realmonitor\frmRealVideo.resx">
+      <DependentUpon>frmRealVideo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="realmonitor\frmMapMonitor.resx">
+      <DependentUpon>frmMapMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmUser.resx">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmUserInput.resx">
+      <DependentUpon>frmUserInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmSysLog.resx">
+      <DependentUpon>frmSysLog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmRole.resx">
+      <DependentUpon>frmRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="systemset\frmRoleInput.resx">
+      <DependentUpon>frmRoleInput.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_pencil_profile_write_16px_2458_easyicon.net.png" />
+    <None Include="Resources\full_trash_16px_15927_easyicon.net.png" />
+    <None Include="Resources\add_16px_32817_easyicon.net.png" />
+    <None Include="Resources\delete_16px_40904_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Search_16px_1072624_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Gear_16px_567604_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock_flat_brown_16px_1117242_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bullet_deny_16px_533412_easyicon.net.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="20150806092640365_easyicon_net_32.ico" />
+    <None Include="Resources\track.png" />
+    <None Include="Resources\prev.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\prev2.png" />
+    <None Include="Resources\next2.png" />
+    <None Include="Resources\4132641291014631.jpg" />
+    <None Include="Resources\bus_24px_34179_easyicon.net.png" />
+    <None Include="Resources\png-0005.png" />
+    <None Include="Resources\close_out.png" />
+    <None Include="Resources\close_in.png" />
+    <None Include="Resources\login_btn3.png" />
+    <None Include="Resources\login_btn2.png" />
+    <None Include="Resources\login_btn.png" />
+    <None Include="Resources\Undo_16x16.png" />
+    <None Include="Resources\InvalidImage.jpg" />
+    <None Include="Resources\Download_16x16.png" />
+    <None Include="Resources\Delete_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nVLC\Declarations\nVLC.Declarations.csproj">
+      <Project>{819c4bab-8fd0-463f-bb5f-119731840390}</Project>
+      <Name>nVLC.Declarations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\nVLC\Implementation\nVLC.Implementation.csproj">
+      <Project>{6ba02cca-2e14-4a64-8ab6-594e600d80c9}</Project>
+      <Name>nVLC.Implementation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="AxMapXLib">
+      <Guid>{E760686B-BC9E-4802-9ECF-175FDF4062CE}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="MapXLib">
+      <Guid>{E760686B-BC9E-4802-9ECF-175FDF4062CE}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
