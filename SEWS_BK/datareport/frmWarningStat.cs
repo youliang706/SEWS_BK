@@ -20,10 +20,14 @@ namespace SEWS_BK.datareport
     {
         private DevExpress.XtraGrid.Columns.GridColumn colLine;
         private DevExpress.XtraGrid.Columns.GridColumn colBusNumber;
-        private DevExpress.XtraGrid.Columns.GridColumn colOverSpeed;
-        private DevExpress.XtraGrid.Columns.GridColumn colOffset;
-        private DevExpress.XtraGrid.Columns.GridColumn colCollision;
-        private DevExpress.XtraGrid.Columns.GridColumn colTotalTimes;
+        private DevExpress.XtraGrid.Columns.GridColumn colPCW;
+        private DevExpress.XtraGrid.Columns.GridColumn colFCW;
+        private DevExpress.XtraGrid.Columns.GridColumn colUFCW;
+        private DevExpress.XtraGrid.Columns.GridColumn colLDW;
+        private DevExpress.XtraGrid.Columns.GridColumn colHMW;
+        private DevExpress.XtraGrid.Columns.GridColumn colTSR;
+        private DevExpress.XtraGrid.Columns.GridColumn colFDW;
+        private DevExpress.XtraGrid.Columns.GridColumn colTotal;
 
         private CDatabase db = Program.db;
 
@@ -46,20 +50,21 @@ namespace SEWS_BK.datareport
 
             colLine = CSubClass.CreateColumn("LINENAME", "车队", 1, 100);
             colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 2, 100);
-            colOverSpeed = CSubClass.CreateColumn("OVERSPEED", "超速报警次数", 3, 100);
-            colOffset = CSubClass.CreateColumn("OFFSET", "偏离报警次数", 4, 100);
-            colCollision = CSubClass.CreateColumn("COLLISION", "碰撞报警次数", 5, 100);
-            colTotalTimes = CSubClass.CreateColumn("TOTALTIMES", "合计报警次数", 6, 100);
+            colPCW = CSubClass.CreateColumn("PCW", "PCW 行人碰撞", 3, 100);
+            colFCW = CSubClass.CreateColumn("FCW", "FCW 前碰撞", 4, 100);
+            colUFCW = CSubClass.CreateColumn("UFCW", "UFCW 城市前碰撞", 5, 100);
+            colLDW = CSubClass.CreateColumn("LDW", "LDW 车道偏离", 5, 100);
+            colHMW = CSubClass.CreateColumn("HMW", "HMW 前方测距", 5, 100);
+            colTSR = CSubClass.CreateColumn("TSR", "TSR 超速", 5, 100);
+            colFDW = CSubClass.CreateColumn("FDW", "FDW 疲劳驾驶", 5, 100);
+            colTotal = CSubClass.CreateColumn("TOTALTIMES", "合计报警次数", 6, 100);
 
             dgvDetail.GroupRowHeight = 26;
             colLine.GroupIndex = 0;     //分组
             //dgvDetail.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "超速报警次数", colOverSpeed);
-            //dgvDetail.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "偏离报警次数", colOffset);
-            //dgvDetail.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "碰撞报警次数", colCollision);
-            //dgvDetail.GroupSummary.Add(DevExpress.Data.SummaryItemType.Sum, "合计报警次数", colTotalTimes);
 
             this.dgvDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-                colLine, colBusNumber, colOverSpeed, colOffset, colCollision, colTotalTimes
+                colLine, colBusNumber, colPCW, colFCW, colUFCW, colLDW, colHMW, colTSR, colFDW, colTotal
             });
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn c in dgvDetail.Columns)
@@ -89,20 +94,23 @@ namespace SEWS_BK.datareport
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, NVL(e.OVERSPEED,0) AS OVERSPEED, NVL(e.OFFSET,0) AS OFFSET, NVL(e.COLLISION,0) AS COLLISION, NVL(e.TOTALTIMES,0) AS TOTALTIMES " + Environment.NewLine
-                        + "     " + Environment.NewLine
+            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, NVL(e.PCW,0) AS PCW, NVL(e.FCW,0) AS FCW, NVL(e.UFCW,0) AS UFCW, " + Environment.NewLine
+                        + "    NVL(e.LDW, 0) AS LDW, NVL(e.HMW, 0) AS HMW, NVL(e.TSR, 0) AS TSR, NVL(e.FDW, 0) AS FDW, " + Environment.NewLine 
+                        + "    NVL(e.TOTALTIMES,0) AS TOTALTIMES " + Environment.NewLine
                         + "FROM TB_LINE_BUSES a " + Environment.NewLine
                         + "INNER JOIN TB_BUSES b ON b.BUSID = a.BUSID " + Environment.NewLine
                         + "INNER JOIN TB_LINES c ON c.LINEID = a.LINEID " + Environment.NewLine
-                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = a.LINEID2 " + Environment.NewLine
+                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = c.LINEID2 " + Environment.NewLine
                         + "INNER JOIN ( " + Environment.NewLine
-                        + "    SELECT BUSID2, SUM(CASE WARNINGTYPE WHEN 1 THEN 1 ELSE 0 END) AS OVERSPEED, SUM(CASE WARNINGTYPE WHEN 2 THEN 1 ELSE 0 END) AS OFFSET, " + Environment.NewLine
-                        + "        SUM(CASE WARNINGTYPE WHEN 3 THEN 1 ELSE 0 END) AS COLLISION, COUNT(*) AS TOTALTIMES " + Environment.NewLine
+                        + "    SELECT BUSID2, SUM(CASE WARNINGTYPE WHEN 1 THEN 1 ELSE 0 END) AS PCW, SUM(CASE WARNINGTYPE WHEN 2 THEN 1 ELSE 0 END) AS FCW, " + Environment.NewLine
+                        + "        SUM(CASE WARNINGTYPE WHEN 3 THEN 1 ELSE 0 END) AS UFCW, SUM(CASE WARNINGTYPE WHEN 4 THEN 1 ELSE 0 END) AS LDW, " + Environment.NewLine
+                        + "        SUM(CASE WARNINGTYPE WHEN 5 THEN 1 ELSE 0 END) AS HMW, SUM(CASE WARNINGTYPE WHEN 6 THEN 1 ELSE 0 END) AS TSR, " + Environment.NewLine
+                        + "        SUM(CASE WARNINGTYPE WHEN 7 THEN 1 ELSE 0 END) AS FDW, COUNT(*) AS TOTALTIMES " + Environment.NewLine
                         + "    FROM TB_WARNING " + conStr + Environment.NewLine
                         + "    GROUP BY BUSID2 " + Environment.NewLine 
                         + ") e ON e.BUSID2 = b.BUSID2 ";
             
-            sql += "ORDER BY c.LINENAME, b.BUSNUMBER ";
+            sql += "ORDER BY c.LINEID2, b.BUSNUMBER ";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)

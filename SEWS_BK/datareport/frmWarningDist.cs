@@ -103,13 +103,13 @@ namespace SEWS_BK.datareport
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT p.WARNINGNAME, NVL(a.NUM,0) AS NUM "
-                        + "FROM TB_WARNINGTYPE p "
-                        + "LEFT JOIN ( "
-                        + "    SELECT a.WARNINGTYPE, COUNT(*) AS NUM "
-                        + "    FROM TB_WARNING a LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 "
-                        + "    " + conStr
-                        + "    GROUP BY a.WARNINGTYPE "
+            string sql = "SELECT p.WARNINGNAME, NVL(a.NUM,0) AS NUM " + Environment.NewLine
+                        + "FROM TB_WARNINGTYPE p " + Environment.NewLine
+                        + "LEFT JOIN ( " + Environment.NewLine
+                        + "    SELECT a.WARNINGTYPE, COUNT(*) AS NUM " + Environment.NewLine
+                        + "    FROM TB_WARNING a LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
+                        + "    " + conStr + Environment.NewLine
+                        + "    GROUP BY a.WARNINGTYPE " + Environment.NewLine
                         + ") a ON a.WARNINGTYPE = p.WARNINGID2 ";
             DataTable dt = db.GetRs(sql);
 

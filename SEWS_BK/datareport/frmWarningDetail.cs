@@ -131,7 +131,7 @@ namespace SEWS_BK.datareport
                 sqlCon.Add("a.WARNINGTYPE = " + typeid + " ");
             }
 
-            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, f.WARNINGNAME, a.ITIME, e.STATIONNAME AS PLACE, a.SPEED " + Environment.NewLine
+            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, f.WARNINGNAME, a.ITIME, e.STATIONNAME AS PLACE, ROUND(a.SPEED,0) AS SPEED " + Environment.NewLine
                         + "FROM TB_WARNING a " + Environment.NewLine
                         + "LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
                         + "LEFT JOIN TB_LINES c ON c.LINEID2 = a.LINEID2 " + Environment.NewLine

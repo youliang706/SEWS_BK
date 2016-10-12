@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.XYDiagramPane xyDiagramPane1 = new DevExpress.XtraCharts.XYDiagramPane();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.AreaSeriesView areaSeriesView1 = new DevExpress.XtraCharts.AreaSeriesView();
             DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
@@ -63,6 +64,7 @@
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagramPane1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(areaSeriesView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
@@ -280,10 +282,17 @@
             this.chartView.ContextMenuStrip = this.mnuChart;
             this.chartView.Cursor = System.Windows.Forms.Cursors.Default;
             this.chartView.DataBindings = null;
-            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram1.AxisX.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "0";
             xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
             xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0D;
-            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisY.Visibility = DevExpress.Utils.DefaultBoolean.True;
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1;0";
+            xyDiagramPane1.Name = "Pane 1";
+            xyDiagramPane1.PaneID = 0;
+            xyDiagram1.Panes.AddRange(new DevExpress.XtraCharts.XYDiagramPane[] {
+            xyDiagramPane1});
             this.chartView.Diagram = xyDiagram1;
             this.chartView.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
             this.chartView.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
@@ -305,6 +314,7 @@
             series1.Name = "Series 1";
             series1.View = areaSeriesView1;
             series2.Name = "Series 2";
+            areaSeriesView2.PaneName = "Pane 1";
             series2.View = areaSeriesView2;
             this.chartView.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
         series1,
@@ -347,6 +357,7 @@
             this.mnuChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(xyDiagramPane1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(areaSeriesView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();

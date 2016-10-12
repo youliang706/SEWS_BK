@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraCharts.XYDiagram xyDiagram2 = new DevExpress.XtraCharts.XYDiagram();
-            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.AreaSeriesView areaSeriesView4 = new DevExpress.XtraCharts.AreaSeriesView();
-            DevExpress.XtraCharts.Series series4 = new DevExpress.XtraCharts.Series();
-            DevExpress.XtraCharts.AreaSeriesView areaSeriesView5 = new DevExpress.XtraCharts.AreaSeriesView();
-            DevExpress.XtraCharts.AreaSeriesView areaSeriesView6 = new DevExpress.XtraCharts.AreaSeriesView();
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
+            DevExpress.XtraCharts.XYDiagramPane xyDiagramPane1 = new DevExpress.XtraCharts.XYDiagramPane();
+            DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.AreaSeriesView areaSeriesView1 = new DevExpress.XtraCharts.AreaSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.AreaSeriesView areaSeriesView2 = new DevExpress.XtraCharts.AreaSeriesView();
+            DevExpress.XtraCharts.AreaSeriesView areaSeriesView3 = new DevExpress.XtraCharts.AreaSeriesView();
             this.btnPreview = new DevExpress.XtraEditors.SimpleButton();
             this.btnFind = new DevExpress.XtraEditors.SimpleButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
@@ -62,12 +63,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView6)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagramPane1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView3)).BeginInit();
             this.xtraScrollableControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -280,11 +282,15 @@
             this.chartView.ContextMenuStrip = this.mnuChart;
             this.chartView.Cursor = System.Windows.Forms.Cursors.Default;
             this.chartView.DataBindings = null;
-            xyDiagram2.AxisX.VisibleInPanesSerializable = "-1";
-            xyDiagram2.AxisX.WholeRange.AutoSideMargins = false;
-            xyDiagram2.AxisX.WholeRange.SideMarginsValue = 0D;
-            xyDiagram2.AxisY.VisibleInPanesSerializable = "-1";
-            this.chartView.Diagram = xyDiagram2;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1;0";
+            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1;0";
+            xyDiagramPane1.Name = "Pane 1";
+            xyDiagramPane1.PaneID = 0;
+            xyDiagram1.Panes.AddRange(new DevExpress.XtraCharts.XYDiagramPane[] {
+            xyDiagramPane1});
+            this.chartView.Diagram = xyDiagram1;
             this.chartView.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
             this.chartView.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
             this.chartView.Legend.Direction = DevExpress.XtraCharts.LegendDirection.LeftToRight;
@@ -302,15 +308,16 @@
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(142)))), ((int)(((byte)(0))))), System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(142)))), ((int)(((byte)(0)))))),
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167))))), System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167)))))),
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))), System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))))}));
-            series3.Name = "Series 1";
-            series3.View = areaSeriesView4;
-            series4.Name = "Series 2";
-            series4.View = areaSeriesView5;
+            series1.Name = "Series 1";
+            series1.View = areaSeriesView1;
+            series2.Name = "Series 2";
+            areaSeriesView2.PaneName = "Pane 1";
+            series2.View = areaSeriesView2;
             this.chartView.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series3,
-        series4};
-            areaSeriesView6.Transparency = ((byte)(0));
-            this.chartView.SeriesTemplate.View = areaSeriesView6;
+        series1,
+        series2};
+            areaSeriesView3.Transparency = ((byte)(0));
+            this.chartView.SeriesTemplate.View = areaSeriesView3;
             this.chartView.Size = new System.Drawing.Size(784, 319);
             this.chartView.TabIndex = 2;
             this.chartView.SizeChanged += new System.EventHandler(this.chartView_SizeChanged);
@@ -347,12 +354,13 @@
             this.mnuChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(xyDiagram2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(areaSeriesView6)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagramPane1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(areaSeriesView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartView)).EndInit();
             this.xtraScrollableControl1.ResumeLayout(false);
             this.ResumeLayout(false);

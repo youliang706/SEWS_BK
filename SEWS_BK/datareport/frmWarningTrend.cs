@@ -96,16 +96,25 @@ namespace SEWS_BK.datareport
                 conStr = "AND a.LINEID2 = " + lineid + " ";
             }
 
-            string sql = "SELECT e.DTE, p.WARNINGID2, NVL(a.NUM,0) AS NUM "
-                        + "FROM TABLE(FN_GETDTE(to_date('" + ((DateTime)dtpBeg.EditValue).ToString("yyyy-MM-dd") + "','yyyy-mm-dd'),to_date('" + ((DateTime)dtpEnd.EditValue).ToString("yyyy-MM-dd") + "','yyyy-mm-dd'))) e "
-                        + "CROSS JOIN TB_WARNINGTYPE p "
-                        + "LEFT JOIN ( "
-                        + "    SELECT to_char(a.ITIME,'yyyy-mm-dd') AS DTE, a.WARNINGTYPE, COUNT(*) AS NUM "
-                        + "    FROM TB_WARNING a LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 "
-                        + "    WHERE to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') >= '" + ((DateTime)dtpBeg.EditValue).ToString("yyyy-MM-dd 00:00:00") + "' "
-                        + "    AND to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') <= '" + ((DateTime)dtpEnd.EditValue).ToString("yyyy-MM-dd 23:59:59") + "' "
-                        + "    " + conStr
-                        + "    GROUP BY to_char(a.ITIME,'yyyy-mm-dd'), a.WARNINGTYPE "
+            string sql = "SELECT e.DTE, p.WARNINGID2, NVL(a.NUM,0) AS NUM " + Environment.NewLine
+                        + "FROM TABLE(FN_GETDTE(to_date('" + ((DateTime)dtpBeg.EditValue).ToString("yyyy-MM-dd") + "','yyyy-mm-dd'),to_date('" + ((DateTime)dtpEnd.EditValue).ToString("yyyy-MM-dd") + "','yyyy-mm-dd'))) e " + Environment.NewLine
+                        + "CROSS JOIN ( " + Environment.NewLine
+                        + "    SELECT WARNINGID2 FROM TB_WARNINGTYPE " + Environment.NewLine
+                        + "    UNION ALL SELECT 0 FROM DUAL " + Environment.NewLine
+                        + ") p LEFT JOIN ( " + Environment.NewLine
+                        + "    SELECT to_char(a.ITIME,'yyyy-mm-dd') AS DTE, a.WARNINGTYPE, COUNT(*) AS NUM " + Environment.NewLine
+                        + "    FROM TB_WARNING a " + Environment.NewLine
+                        + "    WHERE to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') >= '" + ((DateTime)dtpBeg.EditValue).ToString("yyyy-MM-dd 00:00:00") + "' " + Environment.NewLine
+                        + "    AND to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') <= '" + ((DateTime)dtpEnd.EditValue).ToString("yyyy-MM-dd 23:59:59") + "' " + Environment.NewLine
+                        + "    " + conStr + Environment.NewLine
+                        + "    GROUP BY to_char(a.ITIME,'yyyy-mm-dd'), a.WARNINGTYPE " + Environment.NewLine
+                        + "    UNION ALL " + Environment.NewLine
+                        + "    SELECT to_char(a.ITIME,'yyyy-mm-dd') AS DTE, 0, COUNT(*) AS NUM " + Environment.NewLine
+                        + "    FROM TB_WARNING a " + Environment.NewLine
+                        + "    WHERE to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') >= '" + ((DateTime)dtpBeg.EditValue).ToString("yyyy-MM-dd 00:00:00") + "' " + Environment.NewLine
+                        + "    AND to_char(a.ITIME, 'yyyy-MM-dd hh24:mi:ss') <= '" + ((DateTime)dtpEnd.EditValue).ToString("yyyy-MM-dd 23:59:59") + "' " + Environment.NewLine
+                        + "    " + conStr + Environment.NewLine
+                        + "    GROUP BY to_char(a.ITIME,'yyyy-mm-dd') " + Environment.NewLine
                         + ") a ON a.DTE = to_char(e.DTE,'yyyy-mm-dd') AND a.WARNINGTYPE = p.WARNINGID2 ";
             DataTable dt = db.GetRs(sql);
 
@@ -159,6 +168,13 @@ namespace SEWS_BK.datareport
                 chartView.Series[i].Tag = dt.Rows[i]["WARNINGID2"].ToString();
             }
 
+            int idx = chartView.Series.Add("总报警", ViewType.Spline);
+            chartView.Series[idx].Tag = "0";
+
+            SplineSeriesView vw2 = (SplineSeriesView)chartView.Series[idx].View;
+            vw2.Color = Color.Gray;
+            vw2.Pane = ((XYDiagram)chartView.Diagram).Panes[0];
+
             //设置显示
             for (int i = 0; i < chartView.Series.Count; i++)
             {
@@ -171,12 +187,12 @@ namespace SEWS_BK.datareport
             diagram.AxisX.WholeRange.Auto = false;
             diagram.AxisX.WholeRange.AutoSideMargins = true;
             diagram.AxisX.VisualRange.AutoSideMargins = false;
-            diagram.AxisX.VisibleInPanesSerializable = "-1";
+            diagram.AxisX.VisibleInPanesSerializable = "0";
 
             diagram.AxisY.VisualRange.Auto = true;
             diagram.AxisY.VisualRange.AutoSideMargins = true;
             diagram.AxisY.WholeRange.AutoSideMargins = true;
-            diagram.AxisY.VisibleInPanesSerializable = "-1";
+            diagram.AxisY.VisibleInPanesSerializable = "-1;0";
 
             diagram.EnableAxisXScrolling = true;//启用滚动条
 
@@ -194,12 +210,12 @@ namespace SEWS_BK.datareport
 
             if (points.Count > 0)
             {
-                if ((points.Count + 1) * 40 <= chartView.ClientSize.Width)
+                if ((points.Count + 1) * 100 <= chartView.ClientSize.Width)
                 {
                     return;
                 }
 
-                int num = chartView.ClientSize.Width / 40 - 1;
+                int num = chartView.ClientSize.Width / 100 - 1;
 
                 diagram.AxisX.VisualRange.SetMinMaxValues(points[0].Argument, (points.Count > num ? points[num - 1].Argument : points[points.Count - 1].Argument));
                 diagram.AxisX.WholeRange.SetMinMaxValues(points[0].Argument, points[points.Count - 1].Argument);

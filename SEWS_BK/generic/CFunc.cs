@@ -512,17 +512,17 @@ namespace SEWS_BK.generic
 
         public static void ShowLoading()
         {
-            WaitFormService.CreateWaitForm();
+            //WaitFormService.CreateWaitForm();
         }
 
         public static void ShowLoading(string text)
         {
-            WaitFormService.CreateWaitForm(text);
+            //WaitFormService.CreateWaitForm(text);
         }
 
         public static void CloseLoading()
         {
-            WaitFormService.CloseWaitForm();
+            //WaitFormService.CloseWaitForm();
         }
 
         /// <summary>
