@@ -77,7 +77,7 @@ namespace SEWS_BK
                     + "UNION ALL SELECT 'warningtrend', '报警趋势图', 'statistics' , 1, 5, 1 FROM DUAL " + Environment.NewLine
                     + "UNION ALL SELECT 'evaluation', '数据分析', '' , 0, 3, 1 FROM DUAL " + Environment.NewLine
                     + "UNION ALL SELECT 'rsnanalysis', '风险系数分析', 'evaluation' , 1, 1, 1 FROM DUAL " + Environment.NewLine
-                    + "UNION ALL SELECT 'busmonitor', '驾驶行为分析', 'evaluation' , 1, 2, 1 FROM DUAL ";
+                    + "UNION ALL SELECT 'dbanalysis', '驾驶行为分析', 'evaluation' , 1, 2, 1 FROM DUAL ";
             
             DataTable ds = db.GetRs(querySql);
 
@@ -257,10 +257,20 @@ namespace SEWS_BK
                     }
                     break;
 
+                //数据分析
                 case "rsnanalysis":
                     if (!ContainMDIChild("frmRSNAanalysis"))
                     {
                         frmRSNAanalysis frm = new frmRSNAanalysis();
+                        frm.MdiParent = this;
+                        frm.Show();
+                    }
+                    break;
+
+                case "dbanalysis":
+                    if (!ContainMDIChild("frmDBAanalysis"))
+                    {
+                        frmDBAanalysis frm = new frmDBAanalysis();
                         frm.MdiParent = this;
                         frm.Show();
                     }
