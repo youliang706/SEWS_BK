@@ -25,6 +25,7 @@ namespace SEWS_BK.datareport
 
             CSubClass.SetXtraDtpStyle(dtpBeg, DtType.LongDate);
             CSubClass.SetXtraDtpStyle(dtpEnd, DtType.LongDate);
+            chartView2.Series.Clear();
 
             InitCbo();
             dtpBeg.EditValue = DateTime.Now.Date;
@@ -82,6 +83,12 @@ namespace SEWS_BK.datareport
         {
             chartView.Series[0].Points.Clear();
 
+            SetChartStyle();
+            for (int i = 0; i < chartView2.Series.Count; i++)
+            {
+                chartView2.Series[i].Points.Clear();
+            }
+
             List<string> sqlCon = new List<string>();
             string conStr = "";
 
@@ -103,14 +110,15 @@ namespace SEWS_BK.datareport
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT p.WARNINGNAME, NVL(a.NUM,0) AS NUM " + Environment.NewLine
+            string sql = "SELECT p.WARNINGID2, p.WARNINGNAME, NVL(a.NUM,0) AS NUM " + Environment.NewLine
                         + "FROM TB_WARNINGTYPE p " + Environment.NewLine
                         + "LEFT JOIN ( " + Environment.NewLine
                         + "    SELECT a.WARNINGTYPE, COUNT(*) AS NUM " + Environment.NewLine
                         + "    FROM TB_WARNING a LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
                         + "    " + conStr + Environment.NewLine
                         + "    GROUP BY a.WARNINGTYPE " + Environment.NewLine
-                        + ") a ON a.WARNINGTYPE = p.WARNINGID2 ";
+                        + ") a ON a.WARNINGTYPE = p.WARNINGID2 "
+                        + "ORDER BY p.WARNINGID2";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)
@@ -123,7 +131,64 @@ namespace SEWS_BK.datareport
 
                     chartView.Series[0].Points.Add(point);
                 }
+
+                for (int i = 0; i < chartView2.Series.Count; i++)
+                {
+                    DataView dv = dt.DefaultView;
+                    dv.RowFilter = "WARNINGID2 = " + chartView2.Series[i].Tag.ToString() + "";
+
+                    if (dv.Count > 0)
+                    {
+                        SeriesPoint point = new SeriesPoint("次数");
+                        double[] vals = { Convert.ToDouble(dv[0]["NUM"]) };
+                        point.Values = vals;
+
+                        chartView2.Series[i].Points.Add(point);
+                    }
+                }
             }
+        }
+
+        private void SetChartStyle()
+        {
+            if (chartView2.Series.Count > 0)
+            { return; }
+
+            string sql = "SELECT WARNINGID2, WARNINGNAME FROM TB_WARNINGTYPE ORDER BY WARNINGID2";
+            DataTable dt = db.GetRs(sql);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                chartView2.Series.Add(dt.Rows[i]["WARNINGNAME"].ToString(), ViewType.Bar);
+                chartView2.Series[i].Tag = dt.Rows[i]["WARNINGID2"].ToString();
+
+                BarSeriesView vw = (BarSeriesView)chartView2.Series[i].View;
+                vw.Transparency = ((byte)(135));
+            }
+
+            //设置显示
+            for (int i = 0; i < chartView2.Series.Count; i++)
+            {
+                chartView2.Series[i].LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
+            }
+
+            //XYDiagram diagram = chartView2.Diagram as XYDiagram;
+
+            //diagram.AxisX.VisualRange.Auto = false; //要开启滚动条必须将其设置为false
+            //diagram.AxisX.WholeRange.Auto = false;
+            //diagram.AxisX.WholeRange.AutoSideMargins = true;
+            //diagram.AxisX.VisualRange.AutoSideMargins = false;
+            //diagram.AxisX.VisibleInPanesSerializable = "-1";
+
+            //diagram.AxisY.VisualRange.Auto = true;
+            //diagram.AxisY.VisualRange.AutoSideMargins = true;
+            //diagram.AxisY.WholeRange.AutoSideMargins = true;
+            //diagram.AxisY.VisibleInPanesSerializable = "-1";
+
+            //diagram.EnableAxisXScrolling = true;//启用滚动条
+
+            //diagram.AxisX.Label.Angle = -30;
+            //diagram.AxisX.Label.EnableAntialiasing = DevExpress.Utils.DefaultBoolean.True;
         }
 
         private void Preview()
@@ -154,6 +219,19 @@ namespace SEWS_BK.datareport
         private void frmValidStat_Load(object sender, EventArgs e)
         {
             CSubClass.SetXtraTxtMask(this);
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            ControlPaint.DrawBorder(e.Graphics,
+                            this.panel1.ClientRectangle,
+                            Color.FromArgb(157,160,170),
+                            ButtonBorderStyle.Solid);
+        }
+
+        private void panel1_SizeChanged(object sender, EventArgs e)
+        {
+            chartView.Width = panel1.ClientSize.Width / 3;
         }
     }
 }

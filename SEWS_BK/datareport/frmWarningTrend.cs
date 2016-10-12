@@ -123,7 +123,7 @@ namespace SEWS_BK.datareport
                 for (int i = 0; i < chartView.Series.Count; i++)
                 {
                     DataView dv = dt.DefaultView;
-                    dv.RowFilter = "WARNINGID2 = '" + chartView.Series[i].Tag.ToString() + "'";
+                    dv.RowFilter = "WARNINGID2 = " + chartView.Series[i].Tag.ToString() + "";
                     dv.Sort = "DTE";
 
                     if (dv.Count > 0)
@@ -159,7 +159,7 @@ namespace SEWS_BK.datareport
             if (chartView.Series.Count > 0)
             { return; }
 
-            string sql = "SELECT WARNINGID2, WARNINGNAME FROM TB_WARNINGTYPE";
+            string sql = "SELECT WARNINGID2, WARNINGNAME FROM TB_WARNINGTYPE ORDER BY WARNINGID2";
             DataTable dt = db.GetRs(sql);
 
             for (int i = 0; i < dt.Rows.Count; i++)

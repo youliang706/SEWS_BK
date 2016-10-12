@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DevExpress.XtraCharts.XYDiagram xyDiagram1 = new DevExpress.XtraCharts.XYDiagram();
             DevExpress.XtraCharts.Series series1 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.SideBySideBarSeriesView sideBySideBarSeriesView1 = new DevExpress.XtraCharts.SideBySideBarSeriesView();
+            DevExpress.XtraCharts.Series series2 = new DevExpress.XtraCharts.Series();
+            DevExpress.XtraCharts.Series series3 = new DevExpress.XtraCharts.Series();
             DevExpress.XtraCharts.NestedDoughnutSeriesLabel nestedDoughnutSeriesLabel1 = new DevExpress.XtraCharts.NestedDoughnutSeriesLabel();
             DevExpress.XtraCharts.NestedDoughnutSeriesView nestedDoughnutSeriesView1 = new DevExpress.XtraCharts.NestedDoughnutSeriesView();
             DevExpress.XtraCharts.PolygonGradientFillOptions polygonGradientFillOptions1 = new DevExpress.XtraCharts.PolygonGradientFillOptions();
@@ -44,6 +48,8 @@
             this.lblTime = new DevExpress.XtraEditors.LabelControl();
             this.lblLine = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.chartView2 = new DevExpress.XtraCharts.ChartControl();
             this.chartView = new DevExpress.XtraCharts.ChartControl();
             this.xtraScrollableControl1 = new DevExpress.XtraEditors.XtraScrollableControl();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -55,8 +61,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboLine.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartView)).BeginInit();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(series1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(series3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesLabel1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesLabel2)).BeginInit();
@@ -230,26 +242,86 @@
             // panelControl1
             // 
             this.panelControl1.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.panelControl1.Controls.Add(this.chartView);
+            this.panelControl1.Controls.Add(this.panel1);
             this.panelControl1.Controls.Add(this.groupControl1);
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(800, 413);
             this.panelControl1.TabIndex = 0;
             // 
-            // chartView
+            // panel1
             // 
-            this.chartView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.chartView2);
+            this.panel1.Controls.Add(this.chartView);
+            this.panel1.Location = new System.Drawing.Point(8, 86);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(784, 319);
+            this.panel1.TabIndex = 3;
+            this.panel1.SizeChanged += new System.EventHandler(this.panel1_SizeChanged);
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // chartView2
+            // 
+            this.chartView2.BorderOptions.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            this.chartView2.Cursor = System.Windows.Forms.Cursors.Default;
+            this.chartView2.DataBindings = null;
+            xyDiagram1.AxisX.Label.Visible = false;
+            xyDiagram1.AxisX.Reverse = true;
+            xyDiagram1.AxisX.Tickmarks.MinorVisible = false;
+            xyDiagram1.AxisX.Tickmarks.Visible = false;
+            xyDiagram1.AxisX.VisibleInPanesSerializable = "-1";
+            xyDiagram1.AxisX.WholeRange.AutoSideMargins = false;
+            xyDiagram1.AxisX.WholeRange.SideMarginsValue = 0D;
+            xyDiagram1.AxisY.VisibleInPanesSerializable = "-1";
+            xyDiagram1.DefaultPane.BorderVisible = false;
+            xyDiagram1.Rotated = true;
+            this.chartView2.Diagram = xyDiagram1;
+            this.chartView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chartView2.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
+            this.chartView2.Legend.AlignmentVertical = DevExpress.XtraCharts.LegendAlignmentVertical.TopOutside;
+            this.chartView2.Legend.Direction = DevExpress.XtraCharts.LegendDirection.LeftToRight;
+            this.chartView2.Legend.EquallySpacedItems = false;
+            this.chartView2.Legend.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.chartView2.Legend.Name = "Default Legend";
+            this.chartView2.Location = new System.Drawing.Point(341, 0);
+            this.chartView2.Name = "chartView2";
+            this.chartView2.PaletteName = "Palette 1";
+            this.chartView2.PaletteRepository.Add("Palette 1", new DevExpress.XtraCharts.Palette("Palette 1", DevExpress.XtraCharts.PaletteScaleMode.Repeat, new DevExpress.XtraCharts.PaletteEntry[] {
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(85)))), ((int)(((byte)(222))))), System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(85)))), ((int)(((byte)(222)))))),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(188)))), ((int)(((byte)(48))))), System.Drawing.Color.FromArgb(((int)(((byte)(69)))), ((int)(((byte)(188)))), ((int)(((byte)(48)))))),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.Purple, System.Drawing.Color.Purple),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(57)))), ((int)(((byte)(35))))), System.Drawing.Color.FromArgb(((int)(((byte)(103)))), ((int)(((byte)(57)))), ((int)(((byte)(35)))))),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(142)))), ((int)(((byte)(0))))), System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(142)))), ((int)(((byte)(0)))))),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167))))), System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167)))))),
+                new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))), System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))))}));
+            series1.Name = "Series 1";
+            sideBySideBarSeriesView1.Transparency = ((byte)(135));
+            series1.View = sideBySideBarSeriesView1;
+            series2.Name = "Series 2";
+            this.chartView2.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
+        series1,
+        series2};
+            this.chartView2.Size = new System.Drawing.Size(441, 317);
+            this.chartView2.TabIndex = 4;
+            // 
+            // chartView
+            // 
+            this.chartView.BorderOptions.Visibility = DevExpress.Utils.DefaultBoolean.False;
             this.chartView.Cursor = System.Windows.Forms.Cursors.Default;
             this.chartView.DataBindings = null;
+            this.chartView.Dock = System.Windows.Forms.DockStyle.Left;
             this.chartView.Legend.AlignmentHorizontal = DevExpress.XtraCharts.LegendAlignmentHorizontal.Right;
             this.chartView.Legend.EquallySpacedItems = false;
             this.chartView.Legend.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.chartView.Legend.Name = "Default Legend";
             this.chartView.Legend.Shadow.Visible = true;
-            this.chartView.Location = new System.Drawing.Point(8, 86);
+            this.chartView.Legend.Visibility = DevExpress.Utils.DefaultBoolean.False;
+            this.chartView.Location = new System.Drawing.Point(0, 0);
             this.chartView.Name = "chartView";
             this.chartView.PaletteName = "Palette 1";
             this.chartView.PaletteRepository.Add("Palette 1", new DevExpress.XtraCharts.Palette("Palette 1", DevExpress.XtraCharts.PaletteScaleMode.Repeat, new DevExpress.XtraCharts.PaletteEntry[] {
@@ -264,8 +336,8 @@
             nestedDoughnutSeriesLabel1.Position = DevExpress.XtraCharts.PieSeriesLabelPosition.Outside;
             nestedDoughnutSeriesLabel1.Shadow.Visible = true;
             nestedDoughnutSeriesLabel1.TextPattern = "{A}：{VP:0%}";
-            series1.Label = nestedDoughnutSeriesLabel1;
-            series1.Name = "Series 1";
+            series3.Label = nestedDoughnutSeriesLabel1;
+            series3.Name = "Series 1";
             nestedDoughnutSeriesView1.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             nestedDoughnutSeriesView1.Border.Visibility = DevExpress.Utils.DefaultBoolean.True;
             nestedDoughnutSeriesView1.ExplodedDistancePercentage = 2D;
@@ -274,15 +346,14 @@
             polygonGradientFillOptions1.Color2 = System.Drawing.Color.WhiteSmoke;
             polygonGradientFillOptions1.GradientMode = DevExpress.XtraCharts.PolygonGradientMode.TopLeftToBottomRight;
             nestedDoughnutSeriesView1.FillStyle.Options = polygonGradientFillOptions1;
-            series1.View = nestedDoughnutSeriesView1;
+            series3.View = nestedDoughnutSeriesView1;
             this.chartView.SeriesSerializable = new DevExpress.XtraCharts.Series[] {
-        series1};
+        series3};
             nestedDoughnutSeriesLabel2.Position = DevExpress.XtraCharts.PieSeriesLabelPosition.Outside;
             this.chartView.SeriesTemplate.Label = nestedDoughnutSeriesLabel2;
             this.chartView.SeriesTemplate.View = nestedDoughnutSeriesView2;
-            this.chartView.Size = new System.Drawing.Size(784, 319);
-            this.chartView.TabIndex = 2;
-            this.chartView.SizeChanged += new System.EventHandler(this.chartView_SizeChanged);
+            this.chartView.Size = new System.Drawing.Size(341, 317);
+            this.chartView.TabIndex = 3;
             // 
             // xtraScrollableControl1
             // 
@@ -315,9 +386,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.cboLine.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(xyDiagram1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(sideBySideBarSeriesView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesLabel1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(series1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(series3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesLabel2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(nestedDoughnutSeriesView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartView)).EndInit();
@@ -339,6 +416,8 @@
         private DevExpress.XtraEditors.LabelControl lblLine;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraEditors.XtraScrollableControl xtraScrollableControl1;
+        private System.Windows.Forms.Panel panel1;
         private DevExpress.XtraCharts.ChartControl chartView;
+        private DevExpress.XtraCharts.ChartControl chartView2;
     }
 }
