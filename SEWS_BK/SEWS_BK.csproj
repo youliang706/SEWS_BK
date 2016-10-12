@@ -157,6 +157,12 @@
     <Compile Include="datareport\frmWarningPeriodStat.Designer.cs">
       <DependentUpon>frmWarningPeriodStat.cs</DependentUpon>
     </Compile>
+    <Compile Include="evaluatesys\frmDBAanalysis.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="evaluatesys\frmDBAanalysis.Designer.cs">
+      <DependentUpon>frmDBAanalysis.cs</DependentUpon>
+    </Compile>
     <Compile Include="evaluatesys\frmRSNAanalysis.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -277,6 +283,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="datareport\frmWarningPeriodStat.resx">
       <DependentUpon>frmWarningPeriodStat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="evaluatesys\frmDBAanalysis.resx">
+      <DependentUpon>frmDBAanalysis.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="evaluatesys\frmRSNAanalysis.resx">
       <DependentUpon>frmRSNAanalysis.cs</DependentUpon>
