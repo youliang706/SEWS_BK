@@ -11,6 +11,7 @@ using Com.Database;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraCharts;
 using Com.SubClass;
+using SEWS_BK.generic;
 
 namespace SEWS_BK.datareport
 {
@@ -52,9 +53,9 @@ namespace SEWS_BK.datareport
 
         private void InitCbo()
         {
-            string sql = "SELECT LINEID2, LINENAME "
-                        + "FROM TB_LINES "
-                        + "ORDER BY LINENAME ";
+            string sql = "SELECT LINEID2, ALIAS AS LINENAME "
+                        + "FROM TB_TMPLINES "
+                        + "ORDER BY LINEID2 ";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)

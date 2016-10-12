@@ -53,8 +53,9 @@ namespace SEWS_BK
                 pgbInfo.Position = 10;
                 this.Refresh();
 
-                string queryLineStr = "SELECT B.lineID, B.lineName, B.lineID2 " + Environment.NewLine
+                string queryLineStr = "SELECT B.lineID, C.ALIAS AS lineName, C.IMGTYPE, B.lineID2 " + Environment.NewLine
                                     + "FROM TB_User_Lines A INNER JOIN TB_Lines B ON B.lineID = A.lineID AND B.stopsign = 0 " + Environment.NewLine
+                                    + "INNER JOIN TB_TMPLINES C ON C.LINEID2 = B.LINEID2 " + Environment.NewLine 
                                     + "WHERE A.userCode = '" + usercode + "' " + Environment.NewLine
                                     + "ORDER BY B.lineName ";
                 DataTable dt = db.GetRs(queryLineStr);
@@ -65,8 +66,9 @@ namespace SEWS_BK
                         LineInfo li = new LineInfo()
                         {
                             LineID = dt.Rows[i]["lineID"].ToString(),
-                            Name = dt.Rows[i]["lineName"].ToString(),
-                            LineID2 = int.Parse(dt.Rows[i]["lineID2"].ToString())
+                            LineName = dt.Rows[i]["lineName"].ToString(),
+                            LineID2 = int.Parse(dt.Rows[i]["lineID2"].ToString()),
+                            ImgType = int.Parse(dt.Rows[i]["IMGTYPE"].ToString()) 
                         };
                         CLineList.LineInfo.Add(li);
                     }
@@ -74,7 +76,7 @@ namespace SEWS_BK
 
                 for (int k = 0; k < CLineList.LineInfo.Count; k++)
                 {
-                    lblInfo.Text = "正在读取 " + CLineList.LineInfo[k].Name + " 车辆数据...";
+                    lblInfo.Text = "正在读取 " + CLineList.LineInfo[k].LineName + " 车辆数据...";
                     pgbInfo.Position = (int)(20 + 20 * ((double)k / CLineList.LineInfo.Count));
                     this.Refresh();
 
@@ -98,9 +100,12 @@ namespace SEWS_BK
                                 EquipType = int.Parse(dt.Rows[i]["equipType"].ToString()),
                                 BusCode = dt.Rows[i]["busCode"].ToString(),
                                 LineID = CLineList.LineInfo[k].LineID,
+                                LineName = CLineList.LineInfo[k].LineName,
+                                ImgType = CLineList.LineInfo[k].ImgType,
                                 Status = "offline"
                             };
                             CLineList.LineInfo[k].BusList.Add(bi);
+                            CLineList.BusInfo.Add(bi.PhoneNumber, bi);
                         }
                     }
                 }
@@ -117,7 +122,7 @@ namespace SEWS_BK
             {
                 LineInfo li = CLineList.LineInfo[j];
 
-                lblInfo.Text = "正在读取 " + li.Name + " 线路轨迹...";
+                lblInfo.Text = "正在读取 " + li.LineName + " 线路轨迹...";
                 pgbInfo.Position = (int)(40 + 60 * ((double)j / CLineList.LineInfo.Count));
                 this.Refresh();
 

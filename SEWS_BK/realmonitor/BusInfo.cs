@@ -16,6 +16,11 @@
         private string busID2;
 
         /// <summary>
+        /// 使用的图标
+        /// </summary>
+        private int imgType;
+
+        /// <summary>
         /// 公交车内部编号
         /// </summary>
         private string busNumber;
@@ -24,6 +29,11 @@
         /// 所在的线路编号
         /// </summary>
         private string lineID;
+
+        /// <summary>
+        /// 所在的线路名称
+        /// </summary>
+        private string lineName;
 
         /// <summary>
         /// 车牌号
@@ -69,6 +79,15 @@
         }
 
         /// <summary>
+        /// 使用的图标
+        /// </summary>
+        public int ImgType
+        {
+            get { return imgType; }
+            set { imgType = value; }
+        }
+
+        /// <summary>
         /// 公交车内部编号
         /// </summary>
         public string BusNumber
@@ -93,6 +112,15 @@
         {
             get { return lineID; }
             set { lineID = value; }
+        }
+
+        /// <summary>
+        /// 所在的线路名称
+        /// </summary>
+        public string LineName
+        {
+            get { return lineName; }
+            set { lineName = value; }
         }
 
         /// <summary>
@@ -142,7 +170,8 @@
 
         public override string ToString()
         {
-            return busNumber;
+            //return busNumber;
+            return plateNumber;
         }
 
     }

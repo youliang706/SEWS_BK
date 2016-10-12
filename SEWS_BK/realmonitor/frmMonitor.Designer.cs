@@ -84,11 +84,9 @@
             this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "项目2.ico");
-            this.imageList1.Images.SetKeyName(1, "Bus.png");
-            this.imageList1.Images.SetKeyName(2, "Bus1.png");
-            this.imageList1.Images.SetKeyName(3, "Bus2.png");
-            this.imageList1.Images.SetKeyName(4, "Bus3.png");
-            this.imageList1.Images.SetKeyName(5, "透明.png");
+            this.imageList1.Images.SetKeyName(1, "truck.png");
+            this.imageList1.Images.SetKeyName(2, "truck2.png");
+            this.imageList1.Images.SetKeyName(3, "透明.png");
             // 
             // tmrDelay
             // 

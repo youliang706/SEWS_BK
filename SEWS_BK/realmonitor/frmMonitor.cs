@@ -100,6 +100,8 @@ namespace SEWS_BK.realmonitor
         private DevExpress.XtraGrid.Columns.GridColumn colPlace;
         private DevExpress.XtraGrid.Columns.GridColumn colSpeed;
 
+        List<RowData> RowList = new List<RowData>();
+
         public frmMonitor()
         {
             userCode = CVar.LoginID;
@@ -118,8 +120,8 @@ namespace SEWS_BK.realmonitor
         {
             CSubClass.SetXtraGridStyle(dgvDetail);
 
-            colBusNumber = CSubClass.CreateColumn("BUSNUMBER", "车辆编号", 1, 100);
-            colLine = CSubClass.CreateColumn("LINENAME", "线路", 2, 100);
+            colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 1, 100);
+            colLine = CSubClass.CreateColumn("LINENAME", "车队", 2, 100);
             colType = CSubClass.CreateColumn("TYPENAME", "报警类型", 3, 100);
             colTime = CSubClass.CreateColumn("ITIME", "报警时间", 4, 100);
             colPlace = CSubClass.CreateColumn("PLACE", "位置", 5, 100);
@@ -133,6 +135,9 @@ namespace SEWS_BK.realmonitor
             {
                 c.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             }
+
+            gridList.DataSource = RowList;
+            gridList.RefreshDataSource();
         }
 
         private void InitSearch()
@@ -143,7 +148,7 @@ namespace SEWS_BK.realmonitor
                 {
                     LineInfo li = CLineList.LineInfo[i];
 
-                    txtSearch.Properties.Items.Add(li.Name);
+                    txtSearch.Properties.Items.Add(li.LineName);
                 }
             }
         }
@@ -194,6 +199,35 @@ namespace SEWS_BK.realmonitor
         {
             Console.WriteLine(bean.PhoneNumber + "," + bean.Direction);
             dictMonitor[bean.PhoneNumber] = bean;
+
+            if (bean.Speed > 50)    
+            {
+                RowData rd = RowList.Find(delegate (RowData r)
+                {
+                    return r.PHONENUMBER == bean.PhoneNumber;
+                });
+
+                if (rd == null)
+                {
+                    if (RowList.Count == 10)    //最多显示10条
+                    {
+                        RowList.RemoveAt(0);
+                    }
+
+                    BusInfo bi = CLineList.BusInfo[bean.PhoneNumber];
+
+                    rd = new RowData(bean.PhoneNumber, bi.PlateNumber, bi.LineName, "超速", new DateTime(bean.Year,bean.Month,bean.Day, bean.Hour, bean.Minute, bean.Second).ToString() , "", bean.Speed.ToString());
+                    RowList.Add(rd);
+                }
+                else
+                {
+                    rd.ITIME = bean.Speed.ToString();
+                    rd.SPEED = bean.Speed.ToString();
+                    rd.TYPENAME = "超速";
+                }
+
+                gridList.RefreshDataSource();
+            }
         }
 
         /// <summary>
@@ -260,24 +294,6 @@ namespace SEWS_BK.realmonitor
                     //位置
                     gpsPoint gps = GpsTranslate.WGS84ToGCJ02(new gpsPoint(bean.Longitude, bean.Latitude));
                     marker.Position = new PointLatLng(gps.Y, gps.X);
-
-                    //图标
-                    if (bean.WarningInfo.Equals("2"))   //超速报警
-                    {
-                        marker.Image = Properties.Resources.Bus3;
-                    }
-                    else if (bean.DirectionNum == 0)    //上行
-                    {
-                        marker.Image = Properties.Resources.Bus1;
-                    }
-                    else if (bean.DirectionNum == 1)    //下行
-                    {
-                        marker.Image = Properties.Resources.Bus2;
-                    }
-                    else
-                    {
-                        marker.Image = Properties.Resources.Bus;
-                    }
                 }
             }
         }
@@ -326,7 +342,7 @@ namespace SEWS_BK.realmonitor
                     }
                 }
 
-                tn.SetValue(lstTree.Columns[0], li.Name + " (" + onlineCount + @"/" + tn.Nodes.Count + ")");
+                tn.SetValue(lstTree.Columns[0], li.LineName + " (" + onlineCount + @"/" + tn.Nodes.Count + ")");
                 onlineBusCount += onlineCount;
             }
 
@@ -353,7 +369,7 @@ namespace SEWS_BK.realmonitor
                 LineInfo li = CLineList.LineInfo[i];
 
                 TreeListNode ParentNode = lstTree.AppendNode(null, RootNode);
-                ParentNode.SetValue(lstTree.Columns[0], li.Name + " (" + @"0/" + li.BusList.Count + ")");
+                ParentNode.SetValue(lstTree.Columns[0], li.LineName + " (" + @"0/" + li.BusList.Count + ")");
                 ParentNode.SetValue(lstTree.Columns[1], li.LineID);
                 ParentNode.SetValue(lstTree.Columns[2], "1");
                 ParentNode.StateImageIndex = 0;
@@ -363,17 +379,9 @@ namespace SEWS_BK.realmonitor
                 {
                     BusInfo bi = li.BusList[j];
 
-                    TreeListNode ChildNode = lstTree.AppendNode(new object[] { bi.BusNumber, bi.PhoneNumber, "2" }, ParentNode.Id);
+                    TreeListNode ChildNode = lstTree.AppendNode(new object[] { bi.PlateNumber, bi.PhoneNumber, "2" }, ParentNode.Id);
                     ChildNode.Tag = bi;
-
-                    if (bi.PhoneNumber != null && !bi.Equals(""))
-                    {
-                        ChildNode.StateImageIndex = 1;
-                    }
-                    else
-                    {
-                        ChildNode.StateImageIndex = 5;
-                    }
+                    ChildNode.StateImageIndex = 1;
                 }
             }
 
@@ -474,9 +482,26 @@ namespace SEWS_BK.realmonitor
             {
                 MarkerTooltipMode tipMode = gmap.Zoom < 13 ? MarkerTooltipMode.OnMouseOver : MarkerTooltipMode.Always;
 
-                GMapMarkerImage marker = new GMapMarkerImage(new PointLatLng(0, 0), Properties.Resources.Bus);
+                Image img;
+                switch (bi.ImgType)
+                {
+                    case 2:
+                        img = Properties.Resources.Transport_Van2;
+                        break;
+
+                    case 3:
+                        img = Properties.Resources.Transport_Van3;
+                        break;
+
+                    case 1:
+                    default:
+                        img = Properties.Resources.Transport_Van;
+                        break;
+                }
+
+                GMapMarkerImage marker = new GMapMarkerImage(new PointLatLng(0, 0), img);
                 marker.IsVisible = true;
-                marker.ToolTipText = bi.BusNo;
+                marker.ToolTipText = bi.PlateNumber;
                 marker.ToolTipMode = tipMode;
                 marker.ToolTip = new GMapTip(marker, Color.MediumPurple, Color.White);
                 busOverLay.Markers.Add(marker);
@@ -676,7 +701,24 @@ namespace SEWS_BK.realmonitor
             {
                 if (offlineBusMarker == null)
                 {
-                    offlineBusMarker = new GMapMarkerImage(new PointLatLng(0, 0), Properties.Resources.Bus);
+                    Image img;
+                    switch (bi.ImgType)
+                    {
+                        case 2:
+                            img = Properties.Resources.Transport_Van2;
+                            break;
+
+                        case 3:
+                            img = Properties.Resources.Transport_Van3;
+                            break;
+
+                        case 1:
+                        default:
+                            img = Properties.Resources.Transport_Van;
+                            break;
+                    }
+
+                    offlineBusMarker = new GMapMarkerImage(new PointLatLng(0, 0), img);
                     offlineBusMarker.IsVisible = false;
                 }
             }
@@ -725,7 +767,7 @@ namespace SEWS_BK.realmonitor
             tipInfo.Show("最后上线：" + dte.ToString("HH:mm:ss") + Environment.NewLine
                         + "经纬度：　" + lon.ToString() + ", " + lat.ToString() + Environment.NewLine
                         + "速度：　　" + speed.ToString() + Environment.NewLine
-                        + "站点：　　" + station, gmap, (int)point.X + 10, (int)point.Y + 10);
+                        + "位置：　　" + station, gmap, (int)point.X + 10, (int)point.Y + 10);
 
             tmrDelay.Enabled = true;
         }
@@ -1084,7 +1126,7 @@ namespace SEWS_BK.realmonitor
                 //判断是否线路名称
                 for (int i = 0; i < CLineList.LineInfo.Count; i++)
                 {
-                    if (txtSearch.Text == CLineList.LineInfo[i].Name || txtSearch.Text + "路" == CLineList.LineInfo[i].Name)
+                    if (txtSearch.Text == CLineList.LineInfo[i].LineName || txtSearch.Text + "路" == CLineList.LineInfo[i].LineName)
                     {
                         string lineID = CLineList.LineInfo[i].LineID;
 
@@ -1102,6 +1144,28 @@ namespace SEWS_BK.realmonitor
                 //作为地名定位
                 gmap.SetPositionByKeywords(txtSearch.Text);
             }
+        }
+
+        private class RowData
+        {
+            public RowData(string phonenumber, string platenumber, string linename, string typename, string itime, string place, string speed)
+            {
+                this.PHONENUMBER = phonenumber;
+                this.PLATENUMBER = platenumber;
+                this.LINENAME = linename;
+                this.TYPENAME = typename;
+                this.ITIME = itime;
+                this.PLACE = place;
+                this.SPEED = speed;
+            }
+
+            public string PHONENUMBER { get; private set; }
+            public string PLATENUMBER { get; private set; }
+            public string LINENAME { get; private set; }
+            public string TYPENAME { get; set; }
+            public string ITIME { get; set; }
+            public string PLACE { get; set; }
+            public string SPEED { get; set; }
         }
     }
 

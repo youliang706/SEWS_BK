@@ -232,7 +232,7 @@
             this.lblLine.Name = "lblLine";
             this.lblLine.Size = new System.Drawing.Size(36, 17);
             this.lblLine.TabIndex = 0;
-            this.lblLine.Text = "线路：";
+            this.lblLine.Text = "车队：";
             // 
             // mnuBar
             // 

@@ -15,7 +15,7 @@ namespace SEWS_BK.realmonitor
         /// <summary>
         /// 线路名称
         /// </summary>
-        private string name;
+        private string lineName;
 
         /// <summary>
         /// 线路ID
@@ -26,6 +26,11 @@ namespace SEWS_BK.realmonitor
         /// 线路ID2
         /// </summary>
         private int lineID2;
+
+        /// <summary>
+        /// 使用的图标
+        /// </summary>
+        private int imgType;
 
         /// <summary>
         /// 线路下面的公交车列表
@@ -80,12 +85,21 @@ namespace SEWS_BK.realmonitor
         }
 
         /// <summary>
+        /// 使用的图标
+        /// </summary>
+        public int ImgType
+        {
+            get { return imgType; }
+            set { imgType = value; }
+        }
+
+        /// <summary>
         /// 线路名称
         /// </summary>
-        public string Name
+        public string LineName
         {
-            get { return name; }
-            set { name = value; }
+            get { return lineName; }
+            set { lineName = value; }
         }
 
         /// <summary>
@@ -130,7 +144,7 @@ namespace SEWS_BK.realmonitor
 
         public override string ToString()
         {
-            return name;
+            return lineName;
         }
     }
 }

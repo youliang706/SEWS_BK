@@ -43,9 +43,9 @@ namespace SEWS_BK.datareport
 
         private void InitCbo()
         {
-            string sql = "SELECT LINEID2, LINENAME "
-                        + "FROM TB_LINES "
-                        + "ORDER BY LINENAME ";
+            string sql = "SELECT LINEID2, ALIAS AS LINENAME "
+                        + "FROM TB_TMPLINES "
+                        + "ORDER BY LINEID2 ";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)
@@ -87,8 +87,8 @@ namespace SEWS_BK.datareport
         {
             CSubClass.SetXtraGridStyle(dgvDetail);
 
-            colBusNumber = CSubClass.CreateColumn("BUSNUMBER", "车辆编号", 1, 100);
-            colLine = CSubClass.CreateColumn("LINENAME", "线路", 2, 100);
+            colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 1, 100);
+            colLine = CSubClass.CreateColumn("LINENAME", "车队", 2, 100);
             colType = CSubClass.CreateColumn("WARNINGNAME", "报警类型", 3, 100);
             colTime = CSubClass.CreateColumn("ITIME", "报警时间", 4, 100, DevExpress.Utils.HorzAlignment.Center, DevExpress.Utils.FormatType.DateTime, "yyyy-MM-dd HH:mm");
             colPlace = CSubClass.CreateColumn("PLACE", "位置", 5, 100);
@@ -131,12 +131,13 @@ namespace SEWS_BK.datareport
                 sqlCon.Add("a.WARNINGTYPE = " + typeid + " ");
             }
 
-            string sql = "SELECT b.BUSNUMBER, c.LINENAME, e.WARNINGNAME, a.ITIME, d.STATIONNAME AS PLACE, a.SPEED " + Environment.NewLine
+            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, f.WARNINGNAME, a.ITIME, e.STATIONNAME AS PLACE, a.SPEED " + Environment.NewLine
                         + "FROM TB_WARNING a " + Environment.NewLine
                         + "LEFT JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
                         + "LEFT JOIN TB_LINES c ON c.LINEID2 = a.LINEID2 " + Environment.NewLine
-                        + "LEFT JOIN TB_STATIONS d ON d.STATIONID2 = a.STATIONID2 " + Environment.NewLine
-                        + "LEFT JOIN TB_WARNINGTYPE e ON e.WARNINGID2 = a.WARNINGTYPE ";
+                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = c.LINEID2 " + Environment.NewLine
+                        + "LEFT JOIN TB_STATIONS e ON e.STATIONID2 = a.STATIONID2 " + Environment.NewLine
+                        + "LEFT JOIN TB_WARNINGTYPE f ON f.WARNINGID2 = a.WARNINGTYPE ";
 
             if (sqlCon.Count > 0)
             {

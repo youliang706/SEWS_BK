@@ -173,46 +173,6 @@ namespace SEWS_BK.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap Bus {
-            get {
-                object obj = ResourceManager.GetObject("Bus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap Bus1 {
-            get {
-                object obj = ResourceManager.GetObject("Bus1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap Bus2 {
-            get {
-                object obj = ResourceManager.GetObject("Bus2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap Bus3 {
-            get {
-                object obj = ResourceManager.GetObject("Bus3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
         internal static System.Drawing.Bitmap ico_add {
             get {
                 object obj = ResourceManager.GetObject("ico_add", resourceCulture);
@@ -366,6 +326,36 @@ namespace SEWS_BK.Properties {
         internal static System.Drawing.Bitmap route {
             get {
                 object obj = ResourceManager.GetObject("route", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Transport_Van {
+            get {
+                object obj = ResourceManager.GetObject("Transport_Van", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Transport_Van2 {
+            get {
+                object obj = ResourceManager.GetObject("Transport_Van2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Transport_Van3 {
+            get {
+                object obj = ResourceManager.GetObject("Transport_Van3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

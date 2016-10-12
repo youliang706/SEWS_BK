@@ -36,5 +36,13 @@ namespace SEWS_BK.realmonitor
                 return lines;
             }
         }
+
+        private static Dictionary<string, BusInfo> busInfo = new Dictionary<string, BusInfo>();
+
+        public static Dictionary<string, BusInfo> BusInfo
+        {
+            get { return busInfo; }
+            set { busInfo = value; }
+        }
     }
 }

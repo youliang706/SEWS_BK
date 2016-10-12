@@ -44,8 +44,8 @@ namespace SEWS_BK.datareport
         {
             CSubClass.SetXtraGridStyle(dgvDetail);
 
-            colLine = CSubClass.CreateColumn("LINENAME", "线路", 1, 100);
-            colBusNumber = CSubClass.CreateColumn("BUSNUMBER", "车辆编号", 2, 100);
+            colLine = CSubClass.CreateColumn("LINENAME", "车队", 1, 100);
+            colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 2, 100);
             colOverSpeed = CSubClass.CreateColumn("OVERSPEED", "超速报警次数", 3, 100);
             colOffset = CSubClass.CreateColumn("OFFSET", "偏离报警次数", 4, 100);
             colCollision = CSubClass.CreateColumn("COLLISION", "碰撞报警次数", 5, 100);
@@ -89,17 +89,18 @@ namespace SEWS_BK.datareport
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT b.BUSNUMBER, c.LINENAME, NVL(d.OVERSPEED,0) AS OVERSPEED, NVL(d.OFFSET,0) AS OFFSET, NVL(d.COLLISION,0) AS COLLISION, NVL(d.TOTALTIMES,0) AS TOTALTIMES " + Environment.NewLine
+            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, NVL(e.OVERSPEED,0) AS OVERSPEED, NVL(e.OFFSET,0) AS OFFSET, NVL(e.COLLISION,0) AS COLLISION, NVL(e.TOTALTIMES,0) AS TOTALTIMES " + Environment.NewLine
                         + "     " + Environment.NewLine
                         + "FROM TB_LINE_BUSES a " + Environment.NewLine
                         + "INNER JOIN TB_BUSES b ON b.BUSID = a.BUSID " + Environment.NewLine
                         + "INNER JOIN TB_LINES c ON c.LINEID = a.LINEID " + Environment.NewLine
+                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = a.LINEID2 " + Environment.NewLine
                         + "INNER JOIN ( " + Environment.NewLine
                         + "    SELECT BUSID2, SUM(CASE WARNINGTYPE WHEN 1 THEN 1 ELSE 0 END) AS OVERSPEED, SUM(CASE WARNINGTYPE WHEN 2 THEN 1 ELSE 0 END) AS OFFSET, " + Environment.NewLine
                         + "        SUM(CASE WARNINGTYPE WHEN 3 THEN 1 ELSE 0 END) AS COLLISION, COUNT(*) AS TOTALTIMES " + Environment.NewLine
                         + "    FROM TB_WARNING " + conStr + Environment.NewLine
                         + "    GROUP BY BUSID2 " + Environment.NewLine 
-                        + ") d ON d.BUSID2 = b.BUSID2 ";
+                        + ") e ON e.BUSID2 = b.BUSID2 ";
             
             sql += "ORDER BY c.LINENAME, b.BUSNUMBER ";
             DataTable dt = db.GetRs(sql);

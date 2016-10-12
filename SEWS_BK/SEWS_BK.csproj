@@ -58,7 +58,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>20150806092640365_easyicon_net_32.ico</ApplicationIcon>
+    <ApplicationIcon>warning_48px_517113_easyicon.net.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BusMonitor">
@@ -367,6 +367,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="20150806092640365_easyicon_net_32.ico" />
+    <Content Include="warning_128px_517113_easyicon.net.ico" />
+    <Content Include="warning_48px_517113_easyicon.net.ico" />
+    <None Include="Resources\Transport-Van3.png" />
+    <None Include="Resources\Transport-Van2.png" />
+    <None Include="Resources\Transport-Van.png" />
     <None Include="Resources\5_stars.png" />
     <None Include="Resources\4_stars.png" />
     <None Include="Resources\4.5_stars.png" />

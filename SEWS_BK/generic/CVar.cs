@@ -48,10 +48,7 @@ namespace SEWS_BK.generic
             get { return _username; }
             set { _username = value; }
         }
+        
 
-        public static string GetArcName(string roadName, string fNode, string tNode)
-        {
-            return roadName + "（" + fNode + "->" + tNode + "）";
-        }
     }
 }

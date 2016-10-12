@@ -43,9 +43,9 @@ namespace SEWS_BK.evaluatesys
 
         private void InitCbo()
         {
-            string sql = "SELECT LINEID2, LINENAME "
-                        + "FROM TB_LINES "
-                        + "ORDER BY LINENAME ";
+            string sql = "SELECT LINEID2, ALIAS AS LINENAME "
+                        + "FROM TB_TMPLINES "
+                        + "ORDER BY LINEID2 ";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)
@@ -72,8 +72,8 @@ namespace SEWS_BK.evaluatesys
         {
             CSubClass.SetXtraGridStyle(dgvDetail);
 
-            colBusNumber = CSubClass.CreateColumn("BUSNUMBER", "车辆编号", 1, 100);
-            colLine = CSubClass.CreateColumn("LINENAME", "线路", 2, 100);
+            colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 1, 100);
+            colLine = CSubClass.CreateColumn("LINENAME", "车队", 2, 100);
             colBranch = CSubClass.CreateColumn("BRNAME", "组织", 3, 100);
             colScore = CSubClass.CreateColumn("SCORE", "得分", 4, 100);
 
@@ -154,10 +154,11 @@ namespace SEWS_BK.evaluatesys
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT b.BUSNUMBER, c.LINENAME, e.BRNAME, 100 - NVL(d.NUM,0) AS SCORE " + Environment.NewLine
+            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, e.BRNAME, 100 - NVL(e.NUM,0) AS SCORE " + Environment.NewLine
                         + "FROM TB_LINE_BUSES a " + Environment.NewLine
                         + "INNER JOIN TB_BUSES b ON b.BUSID = a.BUSID " + Environment.NewLine
                         + "INNER JOIN TB_LINES c ON c.LINEID = a.LINEID " + Environment.NewLine
+                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = c.LINEID2 " + Environment.NewLine
                         + "LEFT JOIN (" + Environment.NewLine
                         + "    SELECT BUSID2, SUM(WARNINGTYPE) AS NUM FROM (" + Environment.NewLine
                         + "        SELECT BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
@@ -166,7 +167,7 @@ namespace SEWS_BK.evaluatesys
                         + "        GROUP BY BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
                         + "    ) t " + Environment.NewLine
                         + "    GROUP BY t.BUSID2 " + Environment.NewLine
-                        + ") d ON d.BUSID2 = b.BUSID2 " + Environment.NewLine
+                        + ") e ON e.BUSID2 = b.BUSID2 " + Environment.NewLine
                         + "LEFT JOIN TB_BRANCHES e ON e.BRID = c.LINEBRANCHID ";
 
             sql += "ORDER BY c.LINENAME, b.BUSNUMBER ";
