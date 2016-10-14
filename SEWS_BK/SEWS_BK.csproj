@@ -123,6 +123,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\ITS\MapMonitor\MapMonitor\bin\Debug\GMap.NET.WindowsForms.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>C:\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="Oracle.ManagedDataAccess">
       <HintPath>..\..\ITS\MapMonitor\MapMonitor\bin\Debug\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
@@ -189,8 +194,15 @@
     <Compile Include="realmonitor\frmMonitor.Designer.cs">
       <DependentUpon>frmMonitor.cs</DependentUpon>
     </Compile>
+    <Compile Include="realmonitor\frmPlayback.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="realmonitor\frmPlayback.Designer.cs">
+      <DependentUpon>frmPlayback.cs</DependentUpon>
+    </Compile>
     <Compile Include="realmonitor\GMapTip.cs" />
     <Compile Include="realmonitor\LineInfo.cs" />
+    <Compile Include="realmonitor\RealTrackPoint.cs" />
     <Compile Include="realmonitor\StationInfo.cs" />
     <Compile Include="realmonitor\TrackPoint.cs" />
     <Compile Include="systemset\frmUserArc.cs">
@@ -295,6 +307,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="realmonitor\frmMonitor.resx">
       <DependentUpon>frmMonitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="realmonitor\frmPlayback.resx">
+      <DependentUpon>frmPlayback.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="systemset\frmUserArc.resx">
       <DependentUpon>frmUserArc.cs</DependentUpon>

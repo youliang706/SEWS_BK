@@ -20,9 +20,8 @@ namespace SEWS_BK.evaluatesys
     {
         private DevExpress.XtraGrid.Columns.GridColumn colBusNumber;
         private DevExpress.XtraGrid.Columns.GridColumn colLine;
-        private DevExpress.XtraGrid.Columns.GridColumn colBranch;
+        private DevExpress.XtraGrid.Columns.GridColumn colDate;
         private DevExpress.XtraGrid.Columns.GridColumn colScore;
-        private DevExpress.XtraGrid.Columns.GridColumn colGrade;
         private DevExpress.XtraGrid.Columns.GridColumn colOpr;
 
         private CDatabase db = Program.db;
@@ -74,22 +73,13 @@ namespace SEWS_BK.evaluatesys
 
             colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 1, 100);
             colLine = CSubClass.CreateColumn("LINENAME", "车队", 2, 100);
-            colBranch = CSubClass.CreateColumn("BRNAME", "组织", 3, 100);
-            colScore = CSubClass.CreateColumn("SCORE", "得分", 4, 100);
-
-            colGrade = CSubClass.CreateColumn("GRADE", "等级", 5, 150);
-            colGrade.Fixed = FixedStyle.Right;
-            colGrade.OptionsColumn.AllowSize = false;
-            colGrade.OptionsColumn.FixedWidth = true;
-            colGrade.MaxWidth = 100;
-            colGrade.MinWidth = 100;
-            colGrade.ColumnEdit = new RepositoryItemPictureEdit();
-            colGrade.UnboundType = DevExpress.Data.UnboundColumnType.Object;
+            colDate = CSubClass.CreateColumn("DTE", "日期", 3, 100, DevExpress.Utils.HorzAlignment.Center);
+            colScore = CSubClass.CreateColumn("SCORE", "记分", 4, 100);
 
             CreateButtonColumn();
 
             this.dgvDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-                colBusNumber, colLine, colBranch, colScore, colGrade, colOpr
+                colBusNumber, colLine, colDate, colScore, colOpr
             });
 
             foreach (DevExpress.XtraGrid.Columns.GridColumn c in dgvDetail.Columns)
@@ -108,7 +98,7 @@ namespace SEWS_BK.evaluatesys
 
             this.colOpr.Caption = "操作";
             this.colOpr.FieldName = "operate";
-            this.colOpr.Width = 90;
+            this.colOpr.Width = 100;
             this.colOpr.Visible = true;
             this.colOpr.Fixed = FixedStyle.Right;
             this.colOpr.UnboundType = DevExpress.Data.UnboundColumnType.String;
@@ -154,23 +144,19 @@ namespace SEWS_BK.evaluatesys
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, e.BRNAME, 100 - NVL(e.NUM,0) AS SCORE " + Environment.NewLine
-                        + "FROM TB_LINE_BUSES a " + Environment.NewLine
-                        + "INNER JOIN TB_BUSES b ON b.BUSID = a.BUSID " + Environment.NewLine
-                        + "INNER JOIN TB_LINES c ON c.LINEID = a.LINEID " + Environment.NewLine
-                        + "INNER JOIN TB_TMPLINES d ON d.LINEID2 = c.LINEID2 " + Environment.NewLine
-                        + "LEFT JOIN (" + Environment.NewLine
-                        + "    SELECT BUSID2, SUM(WARNINGTYPE) AS NUM FROM (" + Environment.NewLine
-                        + "        SELECT BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
-                        + "        FROM TB_WARNING " + Environment.NewLine 
+            string sql = "SELECT b.PLATENUMBER, c.ALIAS AS LINENAME, a.DTE, NVL(a.NUM,0) AS SCORE " + Environment.NewLine
+                        + "FROM ( " + Environment.NewLine
+                        + "    SELECT LINEID2, BUSID2, DTE, SUM(WARNINGTYPE) AS NUM FROM ( " + Environment.NewLine
+                        + "        SELECT LINEID2, BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') AS DTE " + Environment.NewLine
+                        + "        FROM TB_WARNING " + Environment.NewLine
                         + "        " + conStr + Environment.NewLine
-                        + "        GROUP BY BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
+                        + "        GROUP BY LINEID2, BUSID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
                         + "    ) t " + Environment.NewLine
-                        + "    GROUP BY t.BUSID2 " + Environment.NewLine
-                        + ") e ON e.BUSID2 = b.BUSID2 " + Environment.NewLine
-                        + "LEFT JOIN TB_BRANCHES e ON e.BRID = c.LINEBRANCHID ";
-
-            sql += "ORDER BY c.LINENAME, b.BUSNUMBER ";
+                        + "    GROUP BY t.LINEID2, t.BUSID2, t.DTE " + Environment.NewLine
+                        + ") a " + Environment.NewLine
+                        + "INNER JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
+                        + "INNER JOIN TB_TMPLINES c ON c.LINEID2 = a.LINEID2" + Environment.NewLine
+                        + "ORDER BY a.LINEID2, b.BUSNUMBER ";
             DataTable dt = db.GetRs(sql);
 
             if (dt.Rows.Count > 0)
@@ -230,62 +216,6 @@ namespace SEWS_BK.evaluatesys
         private void btnExport_Click(object sender, EventArgs e)
         {
             CSubClass.ExpToExcel(gridList);
-        }
-
-        private void dgvDetail_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
-        {
-            if (e.Column.FieldName == "GRADE")
-            {
-                if (e.Row != null)
-                {
-                    int score = int.Parse(((DataRowView)e.Row)["SCORE"].ToString());
-
-                    if (score == 100)
-                    {
-                        e.Value = Properties.Resources._5_stars;
-                    }
-                    else if (score >= 90)
-                    {
-                        e.Value = Properties.Resources._4_5_stars;
-                    }
-                    else if (score >= 80)
-                    {
-                        e.Value = Properties.Resources._4_stars;
-                    }
-                    else if (score >= 70)
-                    {
-                        e.Value = Properties.Resources._3_5_stars;
-                    }
-                    else if (score >= 60)
-                    {
-                        e.Value = Properties.Resources._3_stars;
-                    }
-                    else if (score >= 50)
-                    {
-                        e.Value = Properties.Resources._2_5_stars;
-                    }
-                    else if (score >= 40)
-                    {
-                        e.Value = Properties.Resources._2_stars;
-                    }
-                    else if (score >= 30)
-                    {
-                        e.Value = Properties.Resources._1_5_stars;
-                    }
-                    else if (score >= 20)
-                    {
-                        e.Value = Properties.Resources._1_star;
-                    }
-                    else if (score >= 10)
-                    {
-                        e.Value = Properties.Resources._0_5_star;
-                    }
-                    else
-                    {
-                        e.Value = Properties.Resources._0_star;
-                    }
-                }
-            }
         }
     }
 }

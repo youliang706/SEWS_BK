@@ -373,7 +373,7 @@
             this.ClientSize = new System.Drawing.Size(813, 443);
             this.Controls.Add(this.xtraScrollableControl1);
             this.Name = "frmWarningDist";
-            this.Text = "违章数据分布";
+            this.Text = "报警类型分布";
             this.Load += new System.EventHandler(this.frmValidStat_Load);
             this.SizeChanged += new System.EventHandler(this.frmValidStat_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();

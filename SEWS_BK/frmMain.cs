@@ -68,7 +68,8 @@ namespace SEWS_BK
 
             querySql = "SELECT '' AS MENUCODE, '' AS MENUNAME, '' AS MENUPARENTCODE, 0 AS MENULEVEL, 0 AS SEQ, 0 AS ISSHOW FROM DUAL WHERE ROWNUM = 0 " + Environment.NewLine 
                     + "UNION ALL SELECT 'monitoring', '实时监控', '' , 0, 1, 1 FROM DUAL " + Environment.NewLine
-                    + "UNION ALL SELECT 'busmonitor', '车辆监控', 'monitoring' , 1, 1, 1 FROM DUAL " + Environment.NewLine
+                    + "UNION ALL SELECT 'mapmonitor', '车辆监控', 'monitoring' , 1, 1, 1 FROM DUAL " + Environment.NewLine
+                    + "UNION ALL SELECT 'trackplayback', '轨迹回放', 'monitoring' , 1, 1, 1 FROM DUAL " + Environment.NewLine
                     + "UNION ALL SELECT 'statistics', '数据统计', '' , 0, 2, 1 FROM DUAL " + Environment.NewLine
                     + "UNION ALL SELECT 'warningdetail', '报警数据明细', 'statistics' , 1, 1, 1 FROM DUAL " + Environment.NewLine
                     + "UNION ALL SELECT 'warningstat', '报警数据统计', 'statistics' , 1, 2, 1 FROM DUAL " + Environment.NewLine
@@ -193,7 +194,7 @@ namespace SEWS_BK
 
 
                 //实时监控
-                case "busmonitor":
+                case "mapmonitor":
                     if (!ContainMDIChild("frmMonitor"))
                     {
                         bool bln = true;
@@ -205,6 +206,24 @@ namespace SEWS_BK
                         if (bln)
                         {
                             frmMonitor frm = new frmMonitor();
+                            frm.MdiParent = this;
+                            frm.Show();
+                        }
+                    }
+                    break;
+
+                case "trackplayback":
+                    if (!ContainMDIChild("frmPlayback"))
+                    {
+                        bool bln = true;
+                        if (CLineList.ManagedLines.Count == 0)
+                        {
+                            frmLoading LoadingForm = new frmLoading();
+                            bln = LoadingForm.ShowMe(CVar.LoginID);
+                        }
+                        if (bln)
+                        {
+                            frmPlayback frm = new frmPlayback();
                             frm.MdiParent = this;
                             frm.Show();
                         }

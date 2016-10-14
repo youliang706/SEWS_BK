@@ -106,13 +106,14 @@ namespace SEWS_BK
             DataTable dt;
 
             //报警次数
-            sql = "SELECT NVL(SUM(CASE WARNINGTYPE WHEN 1 THEN 1 ELSE 0 END),0) AS PCW, "
-                + "    NVL(SUM(CASE WARNINGTYPE WHEN 2 THEN 1 ELSE 0 END),0) AS FCW, "
-                + "    NVL(SUM(CASE WARNINGTYPE WHEN 3 THEN 1 ELSE 0 END),0) AS UFCW, "
-                + "    NVL(SUM(CASE WARNINGTYPE WHEN 4 THEN 1 ELSE 0 END),0) AS LDW, "
-                + "    NVL(SUM(CASE WARNINGTYPE WHEN 5 THEN 1 ELSE 0 END),0) AS HMW, "
-                + "    NVL(SUM(CASE WARNINGTYPE WHEN 6 THEN 1 ELSE 0 END),0) AS TSR "
-                + "FROM TB_WARNING WHERE TRUNC(ITIME) = TRUNC(SYSDATE) ";
+            sql = "SELECT NVL(SUM(CASE a.WARNINGTYPE WHEN 1 THEN 1 ELSE 0 END),0) AS PCW, " + Environment.NewLine
+                + "    NVL(SUM(CASE a.WARNINGTYPE WHEN 2 THEN 1 ELSE 0 END),0) AS FCW, " + Environment.NewLine
+                + "    NVL(SUM(CASE a.WARNINGTYPE WHEN 3 THEN 1 ELSE 0 END),0) AS UFCW, " + Environment.NewLine
+                + "    NVL(SUM(CASE a.WARNINGTYPE WHEN 4 THEN 1 ELSE 0 END),0) AS LDW, " + Environment.NewLine
+                + "    NVL(SUM(CASE a.WARNINGTYPE WHEN 5 THEN 1 ELSE 0 END),0) AS HMW, " + Environment.NewLine
+                + "    NVL(SUM(CASE a.WARNINGTYPE WHEN 6 THEN 1 ELSE 0 END),0) AS TSR " + Environment.NewLine
+                + "FROM TB_WARNING a INNER JOIN TB_TMPLINES b ON b.LINEID2 = a.LINEID2 " + Environment.NewLine 
+                + "WHERE TRUNC(ITIME) = TRUNC(SYSDATE) ";
             dt = db.GetRs(sql);
 
             lblPCW.Text = dt.Rows[0][0].ToString();
@@ -126,12 +127,9 @@ namespace SEWS_BK
             //报警排行
             sql = "SELECT * FROM ( " + Environment.NewLine
                 + "    SELECT d.ALIAS AS LINENAME, NVL(b.NUM,0) AS NUM FROM TB_LINES a LEFT JOIN ( " + Environment.NewLine
-                + "        SELECT LINEID2, COUNT(*) AS NUM FROM (" + Environment.NewLine
-                + "            SELECT LINEID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
-                + "            FROM TB_WARNING WHERE TRUNC(ITIME) = TRUNC(SYSDATE) " + Environment.NewLine
-                + "            GROUP BY LINEID2, WARNINGTYPE, to_char(ITIME, 'yyyy-mm-dd') " + Environment.NewLine
-                + "        ) t " + Environment.NewLine
-                + "        GROUP BY t.LINEID2 " + Environment.NewLine
+                + "        SELECT LINEID2, COUNT(*) AS NUM FROM TB_WARNING " + Environment.NewLine 
+                + "        WHERE TRUNC(ITIME) = TRUNC(SYSDATE) " + Environment.NewLine
+                + "        GROUP BY LINEID2 " + Environment.NewLine
                 + "    ) b ON b.LINEID2 = a.LINEID2 " + Environment.NewLine
                 + "    INNER JOIN TB_TMPLINES d ON d.LINEID2 = a.LINEID2 " + Environment.NewLine
                 + "    ORDER BY NVL(b.NUM,0) DESC " + Environment.NewLine
@@ -221,12 +219,13 @@ namespace SEWS_BK
 
             //报警记录
             sql = "SELECT * FROM ( " + Environment.NewLine
-                + "    SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, '超速' AS TYPENAME, a.ITIME, e.STATIONNAME, a.SPEED " + Environment.NewLine
+                + "    SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, f.WARNINGNAME AS TYPENAME, a.ITIME, e.STATIONNAME, ROUND(a.SPEED,2) AS SPEED " + Environment.NewLine
                 + "    FROM TB_WARNING a " + Environment.NewLine
                 + "    INNER JOIN TB_BUSES b ON b.BUSID2 = a.BUSID2 " + Environment.NewLine
                 + "    INNER JOIN TB_LINES c ON c.LINEID2 = a.LINEID2 " + Environment.NewLine
                 + "    INNER JOIN TB_TMPLINES d ON d.LINEID2 = c.LINEID2 " + Environment.NewLine
                 + "    LEFT JOIN TB_STATIONS e ON e.STATIONID2 = a.STATIONID2 " + Environment.NewLine
+                + "    LEFT JOIN TB_WARNINGTYPE f ON f.WARNINGID2 = a.WARNINGTYPE " + Environment.NewLine
                 + "    WHERE TRUNC(a.ITIME) = TRUNC(SYSDATE) "
                 + "    ORDER BY a.ITIME DESC " + Environment.NewLine
                 + ") WHERE ROWNUM <= 10 ";
