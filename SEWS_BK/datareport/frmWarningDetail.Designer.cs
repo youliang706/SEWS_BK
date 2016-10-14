@@ -305,7 +305,7 @@
             this.ClientSize = new System.Drawing.Size(800, 441);
             this.Controls.Add(this.xtraScrollableControl1);
             this.Name = "frmWarningDetail";
-            this.Text = "报警数据统计";
+            this.Text = "报警数据明细";
             this.Load += new System.EventHandler(this.frmWarningDatail_Load);
             this.SizeChanged += new System.EventHandler(this.frmWarningDatail_SizeChanged);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
