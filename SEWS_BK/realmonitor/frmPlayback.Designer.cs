@@ -395,17 +395,6 @@
             this.lstBus.Appearance.Options.UseFont = true;
             this.lstBus.CheckOnClick = true;
             this.lstBus.Cursor = System.Windows.Forms.Cursors.Default;
-            this.lstBus.Items.AddRange(new DevExpress.XtraEditors.Controls.CheckedListBoxItem[] {
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem("31-99999"),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null),
-            new DevExpress.XtraEditors.Controls.CheckedListBoxItem(null)});
             this.lstBus.Location = new System.Drawing.Point(47, 108);
             this.lstBus.Name = "lstBus";
             this.lstBus.Size = new System.Drawing.Size(100, 154);
@@ -435,7 +424,7 @@
             // 
             // cboBusSelected
             // 
-            this.cboBusSelected.EditValue = "31-99999";
+            this.cboBusSelected.EditValue = "";
             this.cboBusSelected.Location = new System.Drawing.Point(160, 131);
             this.cboBusSelected.Name = "cboBusSelected";
             this.cboBusSelected.Properties.Appearance.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

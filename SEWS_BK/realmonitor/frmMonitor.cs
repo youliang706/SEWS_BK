@@ -926,109 +926,109 @@ namespace SEWS_BK.realmonitor
 
         private void lstTree_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right)
-            {
-                TreeListNode currentNode = lstTree.FocusedNode;
+            //if (e.Button == MouseButtons.Right)
+            //{
+            //    TreeListNode currentNode = lstTree.FocusedNode;
 
-                if (currentNode.GetValue(2).ToString() == "2")  //车辆
-                {
-                    BusInfo bi = currentNode.Tag as BusInfo;
-                    if (bi != null)
-                    {
-                        lstTree.ContextMenuStrip = mnuBusInfo;
-                        mnuBusInfo.Tag = bi;
-                        for (int i = 0; i < mnuBusInfo.Items.Count; i++)
-                        {
-                            mnuBusInfo.Items[i].Tag = bi;
-                        }
+            //    if (currentNode.GetValue(2).ToString() == "2")  //车辆
+            //    {
+            //        BusInfo bi = currentNode.Tag as BusInfo;
+            //        if (bi != null)
+            //        {
+            //            lstTree.ContextMenuStrip = mnuBusInfo;
+            //            mnuBusInfo.Tag = bi;
+            //            for (int i = 0; i < mnuBusInfo.Items.Count; i++)
+            //            {
+            //                mnuBusInfo.Items[i].Tag = bi;
+            //            }
 
-                        //菜单可用性
-                        if (currentNode.RootNode.RootNode == lstTree.Nodes[0])
-                        {
-                            toolStripSpBus.Visible = false;
-                            mnuItemRemoveBus.Visible = false;
-                        }
-                        else
-                        {
-                            toolStripSpBus.Visible = true;
-                            mnuItemRemoveBus.Visible = true;
-                        }
-                    }
-                }
-                else if (currentNode.GetValue(2).ToString() == "1") //线路
-                {
-                    LineInfo li = currentNode.Tag as LineInfo;
-                    if (li != null)
-                    {
-                        lstTree.ContextMenuStrip = mnuLineInfo;
-                        mnuLineInfo.Tag = li;
-                        for (int i = 0; i < mnuLineInfo.Items.Count; i++)
-                        {
-                            mnuLineInfo.Items[i].Tag = li;
-                        }
+            //            //菜单可用性
+            //            if (currentNode.RootNode.RootNode == lstTree.Nodes[0])
+            //            {
+            //                toolStripSpBus.Visible = false;
+            //                mnuItemRemoveBus.Visible = false;
+            //            }
+            //            else
+            //            {
+            //                toolStripSpBus.Visible = true;
+            //                mnuItemRemoveBus.Visible = true;
+            //            }
+            //        }
+            //    }
+            //    else if (currentNode.GetValue(2).ToString() == "1") //线路
+            //    {
+            //        LineInfo li = currentNode.Tag as LineInfo;
+            //        if (li != null)
+            //        {
+            //            lstTree.ContextMenuStrip = mnuLineInfo;
+            //            mnuLineInfo.Tag = li;
+            //            for (int i = 0; i < mnuLineInfo.Items.Count; i++)
+            //            {
+            //                mnuLineInfo.Items[i].Tag = li;
+            //            }
 
-                        //菜单可用性控制
-                        if (currentNode.RootNode == lstTree.Nodes[0])
-                        {
-                            mnuItemShowUpLine.Visible = true;
-                            mnuItemShowDownLine.Visible = true;
-                            mnuItemHideUpLine.Visible = true;
-                            mnuItemHideDownLine.Visible = true;
+            //            //菜单可用性控制
+            //            if (currentNode.RootNode == lstTree.Nodes[0])
+            //            {
+            //                mnuItemShowUpLine.Visible = true;
+            //                mnuItemShowDownLine.Visible = true;
+            //                mnuItemHideUpLine.Visible = true;
+            //                mnuItemHideDownLine.Visible = true;
 
-                            if (upLyrs.ContainsKey(li.LineID))
-                            {
-                                CLineLyr lyr = upLyrs[li.LineID];
-                                mnuItemShowUpLine.Enabled = !lyr.IsVisible;
-                                mnuItemHideUpLine.Enabled = lyr.IsVisible;
-                            }
-                            else
-                            {
-                                mnuItemShowUpLine.Enabled = true;
-                                mnuItemHideUpLine.Enabled = false;
-                            }
+            //                if (upLyrs.ContainsKey(li.LineID))
+            //                {
+            //                    CLineLyr lyr = upLyrs[li.LineID];
+            //                    mnuItemShowUpLine.Enabled = !lyr.IsVisible;
+            //                    mnuItemHideUpLine.Enabled = lyr.IsVisible;
+            //                }
+            //                else
+            //                {
+            //                    mnuItemShowUpLine.Enabled = true;
+            //                    mnuItemHideUpLine.Enabled = false;
+            //                }
 
-                            if (dnLyrs.ContainsKey(li.LineID))
-                            {
-                                CLineLyr lyr = dnLyrs[li.LineID];
-                                mnuItemShowDownLine.Enabled = !lyr.IsVisible;
-                                mnuItemHideDownLine.Enabled = lyr.IsVisible;
-                            }
-                            else
-                            {
-                                mnuItemShowDownLine.Enabled = true;
-                                mnuItemHideDownLine.Enabled = false;
-                            }
-                        }
-                        else
-                        {
-                            mnuItemShowUpLine.Visible = false;
-                            mnuItemShowDownLine.Visible = false;
-                            mnuItemHideUpLine.Visible = false;
-                            mnuItemHideDownLine.Visible = false;
-                        }
-                    }
-                }
-                else if (currentNode.GetValue(2).ToString() == "0") //全部
-                {
-                    lstTree.ContextMenuStrip = mnuAll;
+            //                if (dnLyrs.ContainsKey(li.LineID))
+            //                {
+            //                    CLineLyr lyr = dnLyrs[li.LineID];
+            //                    mnuItemShowDownLine.Enabled = !lyr.IsVisible;
+            //                    mnuItemHideDownLine.Enabled = lyr.IsVisible;
+            //                }
+            //                else
+            //                {
+            //                    mnuItemShowDownLine.Enabled = true;
+            //                    mnuItemHideDownLine.Enabled = false;
+            //                }
+            //            }
+            //            else
+            //            {
+            //                mnuItemShowUpLine.Visible = false;
+            //                mnuItemShowDownLine.Visible = false;
+            //                mnuItemHideUpLine.Visible = false;
+            //                mnuItemHideDownLine.Visible = false;
+            //            }
+            //        }
+            //    }
+            //    else if (currentNode.GetValue(2).ToString() == "0") //全部
+            //    {
+            //        lstTree.ContextMenuStrip = mnuAll;
 
-                    //菜单可用性
-                    if (currentNode == lstTree.Nodes[0])
-                    {
-                        mnuItemShowAllUp.Visible = true;
-                        mnuItemShowAllDown.Visible = true;
-                        mnuItemHideAllUp.Visible = true;
-                        mnuItemHideAllDown.Visible = true;
-                    }
-                    else
-                    {
-                        mnuItemShowAllUp.Visible = false;
-                        mnuItemShowAllDown.Visible = false;
-                        mnuItemHideAllUp.Visible = false;
-                        mnuItemHideAllDown.Visible = false;
-                    }
-                }
-            }
+            //        //菜单可用性
+            //        if (currentNode == lstTree.Nodes[0])
+            //        {
+            //            mnuItemShowAllUp.Visible = true;
+            //            mnuItemShowAllDown.Visible = true;
+            //            mnuItemHideAllUp.Visible = true;
+            //            mnuItemHideAllDown.Visible = true;
+            //        }
+            //        else
+            //        {
+            //            mnuItemShowAllUp.Visible = false;
+            //            mnuItemShowAllDown.Visible = false;
+            //            mnuItemHideAllUp.Visible = false;
+            //            mnuItemHideAllDown.Visible = false;
+            //        }
+            //    }
+            //}
         }
 
         private void mnuItemShowUpLine_Click(object sender, EventArgs e)

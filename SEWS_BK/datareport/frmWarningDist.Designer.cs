@@ -333,11 +333,12 @@
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167))))), System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(167)))))),
                 new DevExpress.XtraCharts.PaletteEntry(System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))), System.Drawing.Color.FromArgb(((int)(((byte)(196)))), ((int)(((byte)(0)))), ((int)(((byte)(32))))))}));
             nestedDoughnutSeriesLabel1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            nestedDoughnutSeriesLabel1.Position = DevExpress.XtraCharts.PieSeriesLabelPosition.Outside;
             nestedDoughnutSeriesLabel1.Shadow.Visible = true;
-            nestedDoughnutSeriesLabel1.TextPattern = "{A}：{VP:0%}";
+            nestedDoughnutSeriesLabel1.TextPattern = "{VP:0%}";
             series3.Label = nestedDoughnutSeriesLabel1;
+            series3.LabelsVisibility = DevExpress.Utils.DefaultBoolean.True;
             series3.Name = "Series 1";
+            series3.ToolTipEnabled = DevExpress.Utils.DefaultBoolean.True;
             nestedDoughnutSeriesView1.Border.Color = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             nestedDoughnutSeriesView1.Border.Visibility = DevExpress.Utils.DefaultBoolean.True;
             nestedDoughnutSeriesView1.ExplodedDistancePercentage = 2D;

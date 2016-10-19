@@ -35,6 +35,7 @@ namespace SEWS_BK
             FillData();
 
             tmrRefresh.Interval = 120 * 1000;    //2分钟刷一次
+            tmrRefresh.Start();
         }
 
         private void frmHomepage_SizeChanged(object sender, EventArgs e)
@@ -55,6 +56,15 @@ namespace SEWS_BK
             {
                 panelControl1.Height = 501;
             }
+
+            gridList.Height = panelControl1.ClientSize.Height / 3;
+            gridList.Top = panelControl5.Top + panelControl5.Height - gridList.Height;
+            pnlRB.Top = gridList.Top - pnlRB.Height - 4;
+            panelControl4.Height = pnlRB.Top - panelControl4.Top - 8;
+
+            chartView.Width = (panelControl4.ClientSize.Width - 30) / 2;
+            chartView2.Left = chartView.Left + chartView.Width + 10;
+            chartView2.Width = chartView.Width;
         }
 
         private void InitGrid()
@@ -92,6 +102,7 @@ namespace SEWS_BK
             pgb5th.EditValue = 0;
 
             chartView.Series[0].Points.Clear();
+            chartView.Series[1].Points.Clear();
 
             chartView2.Series[0].Points.Clear();
 
@@ -149,51 +160,66 @@ namespace SEWS_BK
             if (dt.Rows.Count >= 1)
             {
                 lbl1st.Text = string.Format("{0} ({1})", dt.Rows[0]["LINENAME"].ToString(), dt.Rows[0]["NUM"].ToString());
-                pgb1st.EditValue = int.Parse(dt.Rows[0]["NUM"].ToString()) / totalNum * 100;
+                pgb1st.EditValue = double.Parse(dt.Rows[0]["NUM"].ToString()) / totalNum * 100;
             }
             if (dt.Rows.Count >= 2)
             {
                 lbl2nd.Text = string.Format("{0} ({1})", dt.Rows[1]["LINENAME"].ToString(), dt.Rows[1]["NUM"].ToString());
-                pgb2nd.EditValue = int.Parse(dt.Rows[1]["NUM"].ToString()) / totalNum * 100;
+                pgb2nd.EditValue = double.Parse(dt.Rows[1]["NUM"].ToString()) / totalNum * 100;
             }
             if (dt.Rows.Count >= 3)
             {
                 lbl3rd.Text = string.Format("{0} ({1})", dt.Rows[2]["LINENAME"].ToString(), dt.Rows[2]["NUM"].ToString());
-                pgb3rd.EditValue = int.Parse(dt.Rows[2]["NUM"].ToString()) / totalNum * 100;
+                pgb3rd.EditValue = double.Parse(dt.Rows[2]["NUM"].ToString()) / totalNum * 100;
             }
             if (dt.Rows.Count >= 4)
             {
                 lbl4th.Text = string.Format("{0} ({1})", dt.Rows[3]["LINENAME"].ToString(), dt.Rows[3]["NUM"].ToString());
-                pgb4th.EditValue = int.Parse(dt.Rows[3]["NUM"].ToString()) / totalNum * 100;
+                pgb4th.EditValue = double.Parse(dt.Rows[3]["NUM"].ToString()) / totalNum * 100;
             }
             if (dt.Rows.Count >= 5)
             {
                 lbl5th.Text = string.Format("{0} ({1})", dt.Rows[4]["LINENAME"].ToString(), dt.Rows[4]["NUM"].ToString());
-                pgb5th.EditValue = int.Parse(dt.Rows[4]["NUM"].ToString()) / totalNum * 100;
+                pgb5th.EditValue = double.Parse(dt.Rows[4]["NUM"].ToString()) / totalNum * 100;
             }
 
             //上线率
-            sql = "SELECT count(a.busid2),count(b.busid2) FROM TB_BUSES a LEFT JOIN ( " + Environment.NewLine
+            sql = "SELECT count(a.busid2),count(b.busid2),count(c.busid2) FROM TB_BUSES a " + Environment.NewLine
+                + "LEFT JOIN ( " + Environment.NewLine
                 + "    SELECT busid2 FROM TB_A" + DateTime.Now.ToString("yyyyMMdd") + " GROUP BY busid2 " + Environment.NewLine
                 + ") b ON b.busid2 = a.busid2 " + Environment.NewLine
+                + "LEFT JOIN ( " + Environment.NewLine
+                + "    SELECT busid2,max(itime) FROM TB_A" + DateTime.Now.ToString("yyyyMMdd") + " GROUP BY busid2 HAVING(to_date(to_char(sysdate, 'hh24mi'), 'hh24mi') - to_date(to_char(max(itime), 'hh24mi'), 'hh24mi')) * 1440 < 2  " + Environment.NewLine
+                + ") c ON c.busid2 = a.busid2 " + Environment.NewLine
                 + "WHERE a.BUSID IN (SELECT BUSID FROM TB_LINE_BUSES a INNER JOIN TB_USER_LINES b ON b.LINEID = a.LINEID WHERE b.USERCODE = '" + CVar.LoginID + "')";
             dt = db.GetRs(sql);
 
-            double rate = double.Parse(dt.Rows[0][1].ToString()) / double.Parse(dt.Rows[0][0].ToString());
+            double rate = double.Parse(dt.Rows[0][2].ToString()) / double.Parse(dt.Rows[0][0].ToString());
 
-            SeriesPoint point2 = new SeriesPoint("离线车数");
+            SeriesPoint point2 = new SeriesPoint("未上线");
             double[] vals2 = { Convert.ToDouble(dt.Rows[0][0].ToString()) - Convert.ToDouble(dt.Rows[0][1].ToString()) };
             point2.Values = vals2;
+            point2.Color = Color.MediumPurple;
 
-            SeriesPoint point = new SeriesPoint("上线车数");
+            SeriesPoint point = new SeriesPoint("上线");
             double[] vals = { Convert.ToDouble(dt.Rows[0][1].ToString()) };
             point.Values = vals;
 
             chartView.Series[0].Points.Add(point2);
             chartView.Series[0].Points.Add(point);
 
-            lblBusNum.Text = dt.Rows[0][0].ToString();
-            lblOnlineRate.Text = rate.ToString(("P"));
+            SeriesPoint point4 = new SeriesPoint("离线");
+            double[] vals4 = { Convert.ToDouble(dt.Rows[0][0].ToString()) - Convert.ToDouble(dt.Rows[0][2].ToString()) };
+            point4.Values = vals4;
+
+            SeriesPoint point3 = new SeriesPoint("在线");
+            double[] vals3 = { Convert.ToDouble(dt.Rows[0][2].ToString()) };
+            point3.Values = vals3;
+
+            chartView.Series[1].Points.Add(point4);
+            chartView.Series[1].Points.Add(point3);
+
+            chartView.Titles[0].Text = "总车数：" + dt.Rows[0][0].ToString() + "  在线率：" + rate.ToString(("P"));
 
             //风险指数
             double[] v1 = { 0.4, 0.8, 1.2, 0.6, 1.0, 1.6, 1.2 };
