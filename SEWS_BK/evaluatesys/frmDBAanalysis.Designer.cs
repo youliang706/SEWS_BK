@@ -239,8 +239,8 @@
             this.dgvDetail.GridControl = this.gridList;
             this.dgvDetail.Name = "dgvDetail";
             this.dgvDetail.CustomDrawRowIndicator += new DevExpress.XtraGrid.Views.Grid.RowIndicatorCustomDrawEventHandler(this.dgvDetail_CustomDrawRowIndicator);
+            this.dgvDetail.CustomDrawCell += new DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventHandler(this.dgvDetail_CustomDrawCell);
             this.dgvDetail.CustomDrawEmptyForeground += new DevExpress.XtraGrid.Views.Base.CustomDrawEventHandler(this.dgvDetail_CustomDrawEmptyForeground);
-            this.dgvDetail.CustomUnboundColumnData += new DevExpress.XtraGrid.Views.Base.CustomColumnDataEventHandler(this.dgvDetail_CustomUnboundColumnData);
             // 
             // panelControl1
             // 

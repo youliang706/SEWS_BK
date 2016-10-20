@@ -764,6 +764,14 @@ namespace SEWS_BK.realmonitor
 
             GPoint point = gmap.FromLatLngToLocal(new PointLatLng(gps.Y, gps.X));
 
+            ////逆地址解析（速度慢，匹配度不高）
+            //GeoCoderStatusCode statusCode = GeoCoderStatusCode.Unknow;
+            //Placemark? place = GMapProviders.GoogleChinaMap.GetPlacemark(new PointLatLng(gps.Y, gps.X), out statusCode);
+            //if (statusCode == GeoCoderStatusCode.G_GEO_SUCCESS)
+            //{
+            //    station = place.Value.Address;
+            //}
+
             tipInfo.Show("最后上线：" + dte.ToString("HH:mm:ss") + Environment.NewLine
                         + "经纬度：　" + lon.ToString() + ", " + lat.ToString() + Environment.NewLine
                         + "速度：　　" + speed.ToString() + Environment.NewLine

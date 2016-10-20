@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using Com.Database;
+using Com.SubClass;
+using DevExpress.XtraCharts;
+using SEWS_BK.generic;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Com.Database;
-using DevExpress.XtraEditors.Controls;
-using DevExpress.XtraCharts;
-using Com.SubClass;
-using SEWS_BK.generic;
 
 namespace SEWS_BK
 {

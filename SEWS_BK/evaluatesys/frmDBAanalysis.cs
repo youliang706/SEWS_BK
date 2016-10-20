@@ -18,10 +18,11 @@ namespace SEWS_BK.evaluatesys
 {
     public partial class frmDBAanalysis : Form
     {
+        private DevExpress.XtraGrid.Columns.GridColumn colID;
         private DevExpress.XtraGrid.Columns.GridColumn colBusNumber;
+        private DevExpress.XtraGrid.Columns.GridColumn colDrv;
         private DevExpress.XtraGrid.Columns.GridColumn colLine;
         private DevExpress.XtraGrid.Columns.GridColumn colScore;
-        private DevExpress.XtraGrid.Columns.GridColumn colGrade;
         private DevExpress.XtraGrid.Columns.GridColumn colOpr;
 
         private CDatabase db = Program.db;
@@ -36,8 +37,8 @@ namespace SEWS_BK.evaluatesys
             CSubClass.SetXtraDtpStyle(dtpBeg, DtType.LongDate);
             CSubClass.SetXtraDtpStyle(dtpEnd, DtType.LongDate);
 
-            //dtpBeg.EditValue = DateTime.Now;
-            //dtpEnd.EditValue = DateTime.Now;
+            dtpBeg.EditValue = DateTime.Now;
+            dtpEnd.EditValue = DateTime.Now;
         }
 
         private void InitCbo()
@@ -71,27 +72,24 @@ namespace SEWS_BK.evaluatesys
         {
             CSubClass.SetXtraGridStyle(dgvDetail);
 
+            colID = CSubClass.CreateColumn("BUSID2", "ID", 0, 0);
             colBusNumber = CSubClass.CreateColumn("PLATENUMBER", "车牌号", 1, 100);
-            colLine = CSubClass.CreateColumn("LINENAME", "车队", 2, 100);
-            colScore = CSubClass.CreateColumn("SCORE", "得分", 3, 100);
-
-            colGrade = CSubClass.CreateColumn("GRADE", "等级", 4, 150);
-            colGrade.Fixed = FixedStyle.Right;
-            colGrade.OptionsColumn.AllowSize = false;
-            colGrade.OptionsColumn.FixedWidth = true;
-            colGrade.MaxWidth = 150;
-            colGrade.MinWidth = 150;
-            colGrade.ColumnEdit = new RepositoryItemPictureEdit();
-            colGrade.UnboundType = DevExpress.Data.UnboundColumnType.Object;
+            colDrv = CSubClass.CreateColumn("DRVNAME", "驾驶员", 2, 100);
+            colLine = CSubClass.CreateColumn("LINENAME", "车队", 3, 100);
+            colScore = CSubClass.CreateColumn("SCORE", "得分", 4, 100);
 
             CreateButtonColumn();
 
+            colID.Visible = false;
+
             this.dgvDetail.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
-                colBusNumber, colLine, colScore, colGrade, colOpr
+                colID, colBusNumber, colDrv, colLine, colScore, colOpr
             });
 
-            foreach (DevExpress.XtraGrid.Columns.GridColumn c in dgvDetail.Columns)
+            dgvDetail.OptionsBehavior.Editable = true;
+            foreach (GridColumn c in dgvDetail.Columns)
             {
+                c.OptionsColumn.AllowEdit = c.ColumnEdit is RepositoryItemButtonEdit;
                 c.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             }
         }
@@ -123,6 +121,8 @@ namespace SEWS_BK.evaluatesys
             if (e.Button.Tag.ToString() == "find")
             {
                 //DataEdit(row["ROLECODE"].ToString());
+                frmBehaviorAnalysis frm = new frmBehaviorAnalysis(int.Parse(row["BUSID2"].ToString()), (DateTime)dtpBeg.EditValue, (DateTime)dtpEnd.EditValue);
+                frm.ShowDialog();
             }
         }
 
@@ -152,7 +152,7 @@ namespace SEWS_BK.evaluatesys
                 conStr = "WHERE (" + string.Join("AND ", sqlCon) + ") ";
             }
 
-            string sql = "SELECT b.PLATENUMBER, d.ALIAS AS LINENAME, 100 - NVL(e.NUM,0) AS SCORE " + Environment.NewLine
+            string sql = "SELECT b.BUSID2, b.PLATENUMBER, g.DRVNAME, d.ALIAS AS LINENAME, 100 - NVL(e.NUM,0) AS SCORE " + Environment.NewLine
                         + "FROM TB_LINE_BUSES a " + Environment.NewLine
                         + "INNER JOIN TB_BUSES b ON b.BUSID = a.BUSID " + Environment.NewLine
                         + "INNER JOIN TB_LINES c ON c.LINEID = a.LINEID " + Environment.NewLine
@@ -166,6 +166,8 @@ namespace SEWS_BK.evaluatesys
                         + "    ) t " + Environment.NewLine
                         + "    GROUP BY t.BUSID2 " + Environment.NewLine
                         + ") e ON e.BUSID2 = b.BUSID2 " + Environment.NewLine
+                        + "LEFT JOIN VW_BUS_DRV f ON f.BUSID2 = b.BUSID2 " + Environment.NewLine
+                        + "LEFT JOIN TB_DRIVERS g ON g.DRVNUMBER = f.DRVNUMBER " + Environment.NewLine
                         + "ORDER BY c.LINEID2, b.BUSNUMBER ";
             DataTable dt = db.GetRs(sql);
 
@@ -228,59 +230,32 @@ namespace SEWS_BK.evaluatesys
             CSubClass.ExpToExcel(gridList);
         }
 
-        private void dgvDetail_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        public void DrawProgressBar(DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
         {
-            if (e.Column.FieldName == "GRADE")
+            string s = e.CellValue.ToString();
+            decimal percent = Convert.ToDecimal(s);
+            int width = (int)(100 * Math.Abs(percent / 100) * e.Bounds.Width / 100);
+            //Rectangle rect = new Rectangle(e.Bounds.X, e.Bounds.Y, width, e.Bounds.Height);
+            Rectangle rect = new Rectangle(e.Bounds.X, e.Bounds.Y + (e.Bounds.Height - 16) / 2, width, 16);
+            Brush b = Brushes.MediumSeaGreen;
+            if (percent < 60)
             {
-                if (e.Row != null)
-                {
-                    int score = int.Parse(((DataRowView)e.Row)["SCORE"].ToString());
+                b = Brushes.Brown;
+            }
+            else if (percent < 75)
+            {
+                b = Brushes.Orange;
+            }
+            e.Graphics.FillRectangle(b, rect);
+            e.Graphics.DrawString(s, new Font("微软雅黑", 9), Brushes.White, rect);
+        }
 
-                    if (score == 100)
-                    {
-                        e.Value = Properties.Resources._5_stars;
-                    }
-                    else if (score >= 90)
-                    {
-                        e.Value = Properties.Resources._4_5_stars;
-                    }
-                    else if (score >= 80)
-                    {
-                        e.Value = Properties.Resources._4_stars;
-                    }
-                    else if (score >= 70)
-                    {
-                        e.Value = Properties.Resources._3_5_stars;
-                    }
-                    else if (score >= 60)
-                    {
-                        e.Value = Properties.Resources._3_stars;
-                    }
-                    else if (score >= 50)
-                    {
-                        e.Value = Properties.Resources._2_5_stars;
-                    }
-                    else if (score >= 40)
-                    {
-                        e.Value = Properties.Resources._2_stars;
-                    }
-                    else if (score >= 30)
-                    {
-                        e.Value = Properties.Resources._1_5_stars;
-                    }
-                    else if (score >= 20)
-                    {
-                        e.Value = Properties.Resources._1_star;
-                    }
-                    else if (score >= 10)
-                    {
-                        e.Value = Properties.Resources._0_5_star;
-                    }
-                    else
-                    {
-                        e.Value = Properties.Resources._0_star;
-                    }
-                }
+        private void dgvDetail_CustomDrawCell(object sender, DevExpress.XtraGrid.Views.Base.RowCellCustomDrawEventArgs e)
+        {
+            if (e.Column.FieldName == "SCORE")
+            {
+                DrawProgressBar(e);
+                e.Handled = true;
             }
         }
     }
